@@ -11,13 +11,11 @@
 <div id="app">
     <p>这里是Home!!!!!</p>
     <p>欢迎{{name}}登录！！！</p>
-    <input type="text" v-model="name">
 </div>
 </body>
 </html>
 <script>
-
-    createVueInstance({
+    new Vue({
         el:'#app',
         data: {
             //name是用户名
