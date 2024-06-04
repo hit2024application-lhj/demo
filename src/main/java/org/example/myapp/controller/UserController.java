@@ -22,7 +22,7 @@ public class UserController {
     public String login(String username, String password) {
         User u=userService.findUserByUsername(username);
         if(password.equals(u.getUserKey())){
-            return JSON.toJSONString(ResponseJSON.getOK("OK"));
+            return JSON.toJSONString(ResponseJSON.getOK("OK",u));
         }
         else return JSON.toJSONString(ResponseJSON.getERROR());
     }
@@ -33,7 +33,7 @@ public class UserController {
         User u=new User(username,password);
         //注册
         int r=userService.insertUser(u);
-        if (r<0){
+        if (r==0){
             return JSON.toJSONString(ResponseJSON.getERROR());
         }
         return JSON.toJSONString(ResponseJSON.getOK("OK"));
@@ -45,7 +45,7 @@ public class UserController {
         User u=userService.findUserByUsername(username);
         if(password.equals(u.getUserKey())){
             int r=userService.updateUser(u,new_password);
-            if (r<0){
+            if (r==0){
                 return JSON.toJSONString(ResponseJSON.getERROR("修改失败"));
             }
             return JSON.toJSONString(ResponseJSON.getOK("OK"));
