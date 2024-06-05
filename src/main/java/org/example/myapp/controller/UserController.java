@@ -7,6 +7,7 @@ import org.example.myapp.service.UserService;
 import org.example.myapp.utils.ResponseJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,10 +23,13 @@ public class UserController {
     @ResponseBody
     public String login(String username, String password) {
         User u=userService.findUserByUsername(username);
+        if(u==null){
+            return JSON.toJSONString(ResponseJSON.getERROR("账号或密码错误"));
+        }
         if(password.equals(u.getUserKey())){
             return JSON.toJSONString(ResponseJSON.getOK("OK",u));
         }
-        else return JSON.toJSONString(ResponseJSON.getERROR());
+        else return JSON.toJSONString(ResponseJSON.getERROR("账号或密码错误"));
     }
 
     @ResponseBody
@@ -52,6 +56,11 @@ public class UserController {
             return JSON.toJSONString(ResponseJSON.getOK("OK"));
         }
         else return JSON.toJSONString(ResponseJSON.getERROR("密码错误"));
+    }
+
+    @RequestMapping("")
+    public String start(){
+        return "/res/html/login.html";
     }
 
 

@@ -3,14 +3,14 @@ package org.example.myapp.controller;
 
 import com.alibaba.fastjson.JSON;
 import org.example.myapp.service.EquipmentService;
+import org.example.myapp.utils.ImageUtil;
 import org.example.myapp.utils.ResponseJSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/equipment")
+@Controller
+@RequestMapping("/equipment")
 public class EquipmentController {
 
     @Autowired
@@ -20,6 +20,13 @@ public class EquipmentController {
     @ResponseBody
     public String getEquipmetByUserId(@RequestParam int user_id) {
         return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentsByUserId(user_id)));
+    }
+
+    @ResponseBody
+    @PostMapping("/upload")
+    public String upload(@RequestParam String ImageUrl) {
+        ImageUtil.WriteBase64ToFile("czw.jpg",ImageUrl);
+        return JSON.toJSONString(ResponseJSON.getOK());
     }
 
 }

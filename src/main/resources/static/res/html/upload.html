@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>这里是上传界面</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios0.18.js"></script>
+    <script src="../js/pub.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="file" @change="onFileChange" />
+    <img :src="imageUrl" alt="Selected Image" />
+    <button @click="sendImageToBackend">Send Image to Backend</button>
+</div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            //64编码
+            imageUrl:null,
+            imageFile:null
+        },
+        methods:{
+            onFileChange(e){
+                const file = e.target.files[0];
+                if (!file) return;
+
+                this.imageFile = file;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.imageUrl = e.target.result; // 这是data URL
+                };
+                reader.readAsDataURL(file);
+            },
+            sendImageToBackend(){
+                let _this = this;
+                let data = {ImageUrl: _this.imageUrl};
+                axios({
+                    method: "post",
+                    url: "/equipment/upload",
+                    data: convertToQueryString(data)
+                }).then(function (resp) {
+                    console.log(resp.data);
+                    if (resp.data.code == 200) {
+                        alert("发送成功");
+                    } else {
+                        alert(resp.data.msg);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
+    })
+</script>
+</html>
