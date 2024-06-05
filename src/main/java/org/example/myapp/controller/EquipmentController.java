@@ -7,6 +7,7 @@ import org.example.myapp.utils.ResponseJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/equipment")
@@ -16,6 +17,7 @@ public class EquipmentController {
     private EquipmentService equipmentService;
 
     @RequestMapping("/getEquipmetByUserId")
+    @ResponseBody
     public String getEquipmetByUserId(@RequestParam int user_id) {
         return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentsByUserId(user_id)));
     }

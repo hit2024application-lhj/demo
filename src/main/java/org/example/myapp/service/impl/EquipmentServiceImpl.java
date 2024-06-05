@@ -1,6 +1,7 @@
 package org.example.myapp.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.example.myapp.bean.Equipment;
 import org.example.myapp.service.EquipmentService;
@@ -48,6 +49,35 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
     @Override
     public int addEquipment(Equipment equipment) {
         return equipmentMapper.insert(equipment);
+    }
+
+    @Override
+    public int deleteEquipmentById(int id) {
+        return equipmentMapper.deleteById(id);
+    }
+
+    @Override
+    public int scrapEquipmentById(int id) {
+        UpdateWrapper<Equipment> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.set("is_scrap",1);
+        updateWrapper.eq("id", id);
+        return equipmentMapper.update(updateWrapper);
+    }
+
+    @Override
+    public int lendEquipmentById(int id) {
+        UpdateWrapper<Equipment> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.set("is_lend",1);
+        updateWrapper.eq("id", id);
+        return equipmentMapper.update(updateWrapper);
+    }
+
+    @Override
+    public int recoveryEquipmentById(int id) {
+        UpdateWrapper<Equipment> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.set("is_lend",0);
+        updateWrapper.eq("id", id);
+        return equipmentMapper.update(updateWrapper);
     }
 }
 

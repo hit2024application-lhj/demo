@@ -1,0 +1,153 @@
+
+.accpyde_container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accpyde_profile-section {
+    display: flex;
+    flex-direction: row;
+}
+
+.accpyde_profile-image {
+    flex: 0 0 200px;
+    text-align: center;
+    margin-right: 30px;
+}
+
+.accpyde_profile-image img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accpyde_profile-info {
+    margin-top: 30px;
+    flex: 1;
+}
+
+.accpyde_profile-info label {
+    font-weight: bold;
+    color: #555;
+}
+
+.accpyde_profile-info span {
+    margin: 8px 0;
+}
+
+.accpyde_profile-bio {
+    line-height: 1.6;
+    color: #666;
+}
+
+.accpyde_profile-bio h3 {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+#accpyde_comment-list {
+    margin-top: 20px;
+}
+
+.accpyde_comment-input {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.accpyde_comment {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.accpyde_comment strong {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.accpyde_comment .accpyde_comment-time {
+    font-size: 12px;
+    color: #888;
+    margin-left: 10px;
+}
+
+.accpyde_comment p {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.accpyde_toggle-button {
+    cursor: pointer;
+    color: blue;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.accpyde_sub-comments {
+    margin-left: 20px;
+    display: none;
+}
+
+.accpyde_sub-comment {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.accpyde_sub-comment strong {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.accpyde_sub-comment .accpyde_comment-time {
+    font-size: 10px;
+    color: #888;
+    margin-left: 10px;
+}
+
+.emoji-modal {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.emoji-modal button {
+    margin: 5px;
+    padding: 5px;
+}
+
+
+.accpyde_show-more {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.accpyde_show-more button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}

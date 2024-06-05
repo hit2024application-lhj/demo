@@ -23,4 +23,14 @@ public interface EquipmentService extends IService<Equipment> {
     List<Equipment> getEquipmentsByUserId(Integer user_id);
 
     int addEquipment(Equipment equipment);
+
+    int deleteEquipmentById(int id);
+
+    int scrapEquipmentById(int id);
+
+    //借出
+    int lendEquipmentById(int id);
+
+    //借出后收回
+    int recoveryEquipmentById(int id);
 }

@@ -7,6 +7,7 @@ import org.example.myapp.service.UserService;
 import org.example.myapp.utils.ResponseJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
+    @PostMapping("/login")
     @ResponseBody
     public String login(String username, String password) {
         User u=userService.findUserByUsername(username);
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping("/register")
+    @PostMapping("/register")
     public String register(String username, String password) {
         User u=new User(username,password);
         //注册
@@ -40,7 +41,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public String change(String username, String password,String new_password) {
         User u=userService.findUserByUsername(username);
         if(password.equals(u.getUserKey())){
