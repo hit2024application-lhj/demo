@@ -2,21 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录页</title>
+    <title>注册页</title>
     <script src="../js/vue.js"></script>
     <script src="../js/axios0.18.js"></script>
     <script src="../js/pub.js"></script>
+    <link type="text/css" rel="stylesheet" href="../css/register.css">
 </head>
-<body>
+<body class="background">
 <div id="app">
-    <div class="container">
-        <h1>注册</h1>
+    <div class="login-wrapper">
+        <h1 class="centered-text">Register</h1>
         <form @submit.prevent="login">
-            <label for="username">账号</label>
-            <input type="text" id="username" v-model="username" required>
-            <label for="password">密码</label>
-            <input type="password" id="password" v-model="password" required>
-            <input type="submit" value="登录">
+            <input class="input-item" placeholder="username" type="text" id="username" v-model="username" required>
+            <input class="input-item" placeholder="password" type="password" id="password" v-model="password" required>
+            <input class="btn" type="submit" value="注册">
         </form>
     </div>
 </div>
