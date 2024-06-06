@@ -73,6 +73,18 @@ public class Equipment implements Serializable {
         this.description = description;
     }
 
+    public Equipment(Integer id, String name, Integer categoryId, String picUrl, Date date, Integer isLend, Integer isScrap, Integer userId, String description) {
+        this.id = id;
+        this.name = name;
+        this.categoryId = categoryId;
+        this.picUrl = picUrl;
+        this.date = date;
+        this.isLend = isLend;
+        this.isScrap = isScrap;
+        this.userId = userId;
+        this.description = description;
+    }
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

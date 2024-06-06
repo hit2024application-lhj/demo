@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.example.myapp.bean.Equipment;
+import org.example.myapp.bean.PageResult;
 import org.example.myapp.service.EquipmentService;
 import org.example.myapp.mapper.EquipmentMapper;
+import org.example.myapp.utils.MyPageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ import java.util.List;
 @Service
 public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment>
     implements EquipmentService{
+
+    //分页大小
+    static final int pageSize=3;
 
     @Autowired
     private EquipmentMapper equipmentMapper;
@@ -45,6 +50,24 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
         queryWrapper.eq("user_id", user_id);
         return equipmentMapper.selectList(queryWrapper);
     }
+
+    @Override
+    public PageResult getEquipmentsByEquipmentWithPage(Integer user_id, int pageId) {
+
+
+        QueryWrapper<Equipment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", user_id);
+
+        List<Equipment> lists=equipmentMapper.selectList(queryWrapper);
+        MyPageHelper<Equipment> pageHelper=new MyPageHelper<>(lists);
+
+        return pageHelper.getPageResult(pageId,pageSize);
+    }
+
+
+
+
+
 
     @Override
     public int addEquipment(Equipment equipment) {

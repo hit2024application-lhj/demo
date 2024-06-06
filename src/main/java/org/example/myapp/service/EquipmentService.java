@@ -2,6 +2,7 @@ package org.example.myapp.service;
 
 import org.example.myapp.bean.Equipment;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.example.myapp.bean.PageResult;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public interface EquipmentService extends IService<Equipment> {
      * @return 一个设备对象的列表
      */
     List<Equipment> getEquipmentsByUserId(Integer user_id);
+
+    PageResult getEquipmentsByEquipmentWithPage(Integer user_id, int page);
 
     int addEquipment(Equipment equipment);
 
