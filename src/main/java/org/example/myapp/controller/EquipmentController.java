@@ -21,7 +21,7 @@ public class EquipmentController {
 
     @RequestMapping("/getEquipmetByUserId")
     @ResponseBody
-    public String getEquipmetByUserId(@RequestParam int user_id) {
+    public String getEquipmetByUserId(@RequestParam int user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
         return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentsByUserId(user_id)));
     }
 
@@ -52,6 +52,13 @@ public class EquipmentController {
         else {
             return JSON.toJSONString(ResponseJSON.getERROR("添加失败"));
         }
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/test")
+    public String test() {
+        return JSON.toJSONString(ResponseJSON.getOK("ok",equipmentService.getEquipmentsByEquipmentWithPage(1,2)));
     }
 
 }
