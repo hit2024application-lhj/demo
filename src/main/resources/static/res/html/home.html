@@ -36,11 +36,17 @@
             <div class="mydetail_logout">
                 <button @click="logout()">退出登录</button>
             </div>
+
+            <div class="mydetail_logout">
+                <button @click="upload()">上传新设备</button>
+            </div>
+
         </div>
         <div class="mydetail_content" style="overflow: hidden">
             <iframe :src="activeItem.url"></iframe>
         </div>
     </div>
+
 </div>
 </body>
 </html>
@@ -66,6 +72,9 @@
             },
             logout(){
 
+            },
+            upload(){
+                window.location.href = "upload.html";
             }
         },
         created() {

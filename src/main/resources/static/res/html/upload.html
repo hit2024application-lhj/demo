@@ -9,9 +9,33 @@
 </head>
 <body>
 <div id="app">
-    <input type="file" @change="onFileChange" />
-    <img :src="imageUrl" alt="Selected Image" />
-    <button @click="sendImageToBackend">Send Image to Backend</button>
+<!--    这是上传图片的框-->
+    <div>
+        <input type="file" @change="onFileChange" />
+        <img :src="imageUrl" alt="Selected Image" />
+    </div>
+<!--    这是选项框-->
+    <div>
+        <p>请选择设备分类</p>
+        <select @change="selectClass($event)">
+            <option value=0>请选择</option>
+            <option v-for="(item,id) in categoryList" :key="id" :value="item.id">
+                {{item.name}}
+            </option>
+        </select>
+    </div>
+<!--    这里是输入设备名称的框-->
+    <div>
+        <label for="item_name">请输入设备名称</label>
+        <input id="item_name" type="text" v-model="item_name">
+    </div>
+<!--    这是输入设备详情的框-->
+    <di>
+        <p>请输入相关简介描述</p>
+        <textarea v-model="description" style="resize: none;height: 100px;width: 100px"></textarea>
+    </di>
+<!--    发送数据到后台-->
+    <button @click="sendToBackend">Send to Backend</button>
 </div>
 </body>
 <script>
@@ -20,7 +44,13 @@
         data:{
             //64编码
             imageUrl:null,
-            imageFile:null
+            imageFile:null,
+            categoryList:[],
+            select_class_id:0,
+
+            user_id:0,
+            item_name:'',
+            description:""
         },
         methods:{
             onFileChange(e){
@@ -35,9 +65,16 @@
                 };
                 reader.readAsDataURL(file);
             },
-            sendImageToBackend(){
+            sendToBackend(){
                 let _this = this;
-                let data = {ImageUrl: _this.imageUrl};
+                if (_this.select_class_id==0){
+                    alert("请选择设备类型！！")
+                    return
+                }
+                let data = {ImageUrl: _this.imageUrl,name:_this.item_name,user_id:_this.user_id
+                    ,category_id:_this.select_class_id, description: _this.description
+                }
+                console.log(data)
                 axios({
                     method: "post",
                     url: "/equipment/upload",
@@ -45,14 +82,42 @@
                 }).then(function (resp) {
                     console.log(resp.data);
                     if (resp.data.code == 200) {
-                        alert("发送成功");
+                        alert(resp.data.msg);
+                        window.history.go(-1);
                     } else {
                         alert(resp.data.msg);
                     }
                 }).catch(function (error) {
                     console.log(error);
                 });
-            }
+            },
+            selectClass(event){
+                let _this=this
+                _this.select_class_id = event.target.value;
+                console.log("获取到的id是"+_this.select_class_id)//获取option对应的value值 select_class_id是后台约定的提交数据的名称
+            },
+
+        },
+        mounted(){
+            let _this=this
+            axios({
+                method: "post",
+                url: "/category/getList",
+            }).then(function (resp) {
+                console.log(resp.data);
+                if (resp.data.code == 200) {
+                    _this.categoryList=resp.data.data
+                } else {
+                    alert(resp.data.msg);
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        created(){
+            let _this=this
+            _this.user_id = sessionStorage.getItem("user_id");
+            console.log("当前操作者:"+_this.user_id)
         }
     })
 </script>
