@@ -23,16 +23,21 @@ body {
 .login-wrapper {
   background-color: #fff;
   width: 358px;
-  height: 500px;
+  height: 400px;
   border-radius: 15px;
   padding: 0 50px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
-/*登录按钮*/
+@keyframes fadeIn {  
+    from { opacity: 0.4; }  
+    to { opacity: 1; }  
+  }
+
 .btn {
   text-align: center;
   padding: 10px;
@@ -53,44 +58,9 @@ body {
   background-image: linear-gradient(to right, #4d7690, #b268a3);
 }
 
-/*注册按钮*/
-.btn2 {
-  text-align: center;
-  padding: 10px;
-  width: 100%;
-  margin-top: 20px;
-  border: 0;
-  border-radius: 10px;
-  background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
-  color: #fff;
-  transition: background-image 0.3s ease;
-}
-
-.btn2:hover{
-  background-image: linear-gradient(to right, #91d5ff, #ffe2f9);
-}
-
-.btn2:active{
-  background-image: linear-gradient(to right, #4d7690, #b268a3);
-}
-
 .msg {
   text-align: center;
   line-height: 100px;
-}
-
-.or {
- /* 浅灰色文字 */  
- color: #7697c4;
- height: 28px;  
- line-height: 28px; /* 还需要设置行高以确保文本在垂直方向上居中 */  
- text-align: center;
- display: block;  
- margin: 0 auto;
- width: 100%; 
- margin-top: 20px;
- font-weight: bold;
- font-style: italic;
 }
 
 /* 如果你只想对特定的元素进行样式设置，可以这样做 */  
@@ -104,6 +74,7 @@ body {
     height: 100px; /* 示例高度，可以根据需要调整 */  
     color: rebeccapurple;
 }
+
 
   /* 当输入框获得焦点时 */  
   input[type="text"]:focus,  

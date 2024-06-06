@@ -6,21 +6,22 @@
     <script src="../js/vue.js"></script>
     <script src="../js/axios0.18.js"></script>
     <script src="../js/pub.js"></script>
+    <link type="text/css" rel="stylesheet" href="../css/login.css">
 </head>
-<body>
+<body class="background">
 <div id="app">
-    <div class="container">
-        <h1>登录</h1>
-        <form @submit.prevent="login">
-            <label for="username">账号</label>
-            <input type="text" id="username" v-model="username" required>
-            <label for="password">密码</label>
-            <input type="password" id="password" v-model="password" required>
-            <input type="submit" value="登录">
-        </form>
+    <div class="login-wrapper">
+        <h1 class="centered-text">Login</h1>
+        <div class="form-wrapper">
+            <form @submit.prevent="login">
+                <input class="input-item" placeholder="username" type="text" id="username" v-model="username" required>
+                <input class="input-item" placeholder="password" type="password" id="password" v-model="password" required>
+                <input class="btn" type="submit" value="登录">
+            </form>
+        </div>
+        <p class="or">or</p>
         <div>
-            <p>没有账号？点击注册</p>
-            <button @click="register">注册</button>
+            <button @click="register" class="btn2">注册</button>
         </div>
     </div>
 </div>
