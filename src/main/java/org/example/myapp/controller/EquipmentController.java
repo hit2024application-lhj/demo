@@ -23,7 +23,7 @@ public class EquipmentController {
     @ResponseBody
     @RequestMapping("/getEquipmetByUserId")
     public String getEquipmetByUserId(@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
-        System.out.println(user_id+"-------------"+pageId);
+
         return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentsByEquipmentWithPage(Integer.parseInt(user_id),Integer.parseInt(pageId))));
     }
 
@@ -34,7 +34,7 @@ public class EquipmentController {
         if(ImageUrl==null){
             return JSON.toJSONString(ResponseJSON.getERROR("图片过大！请压缩图片"));
         }
-        String filename="pic/"+category_id+"/"+user_id+"_"+name+".jpg";
+        String filename= "pic/" +category_id+"/"+user_id+"_"+name+".jpg";
         System.out.println(filename);
         ImageUtil.WriteBase64ToFile(filename,ImageUrl);
         System.out.println("图片保存完毕！！");

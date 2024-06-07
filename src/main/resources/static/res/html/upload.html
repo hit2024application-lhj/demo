@@ -9,59 +9,69 @@
     <link type="text/css" rel="stylesheet" href="../css/upload.css">
 </head>
 <body>
-<div class="main-container">
-<!--    这是上传图片的框-->
-    <div>
-        <div>
+<div id="app">
+    <!--    这是上传图片的框-->
+    <div v-if="step == 0" class="main-container">
+        <div class="child-container">
             <img :src="imageUrl" alt="Selected Image" class="image"/>
         </div>
-        <br>
-        <div style="opacity: 1;">
+        <div class="button-container">
             <input type="file" @change="onFileChange"/>
         </div>
+        <button @click="nextStep()" class="btn">下一步</button>
     </div>
-</div>
-<div>
-<!--    这是选项框-->
-    <div>
-        <p>请选择设备分类</p>
-        <select @change="selectClass($event)">
-            <option value=0>请选择</option>
+
+    <!--    这是选项框-->
+    <div v-if="step == 1" class="choose-container">
+        <div class="text-container">
+            <p>请选择设备分类</p>
+        </div>
+        <select class="text-container" @change="selectClass($event)">
+            <div>
+                <option value=0>请选择</option>
+            </div>
             <option v-for="(item,id) in categoryList" :key="id" :value="item.id">
                 {{item.name}}
             </option>
         </select>
+        <button @click="nextStep()" class="btn">下一步</button>
     </div>
-<!--    这里是输入设备名称的框-->
-    <div>
-        <label for="item_name">请输入设备名称</label>
-        <input id="item_name" type="text" v-model="item_name">
+
+    <!--    这里是输入设备名称的框-->
+    <div v-if="step == 2" class="choose-container">
+        <div class="text-container">
+            <p>请输入设备名称</p>
+        </div>
+        <input class="input-item" id="item_name" type="text" v-model="item_name">
+        <button @click="nextStep()" class="btn">下一步</button>
     </div>
-<!--    这是输入设备详情的框-->
-    <di>
+    <!--    这是输入设备详情的框-->
+    <div v-if="step == 3" class="choose-container">
         <p>请输入相关简介描述</p>
         <textarea v-model="description" style="resize: none;height: 100px;width: 100px"></textarea>
-    </di>
-<!--    发送数据到后台-->
-    <button @click="sendToBackend">Send to Backend</button>
+        <!--    发送数据到后台-->
+        <button @click="sendToBackend()">Send to Backend</button>
+    </div>
 </div>
 </body>
 <script>
     new Vue({
-        el:"#app",
-        data:{
+        el: "#app",
+        data: {
             //64编码
-            imageUrl:null,
-            imageFile:null,
-            categoryList:[],
-            select_class_id:0,
+            imageUrl: null,
+            imageFile: null,
+            categoryList: [],
+            select_class_id: 0,
 
-            user_id:0,
-            item_name:'',
-            description:""
+            user_id: 0,
+            item_name: '',
+            description: "",
+
+            step: 0
         },
-        methods:{
-            onFileChange(e){
+        methods: {
+            onFileChange(e) {
                 const file = e.target.files[0];
                 if (!file) return;
 
@@ -73,14 +83,18 @@
                 };
                 reader.readAsDataURL(file);
             },
-            sendToBackend(){
+            sendToBackend() {
                 let _this = this;
-                if (_this.select_class_id==0){
+                if (_this.step >= 3) {
+                    _this.step = 0
+                }
+                if (_this.select_class_id == 0) {
                     alert("请选择设备类型！！")
                     return
                 }
-                let data = {ImageUrl: _this.imageUrl,name:_this.item_name,user_id:_this.user_id
-                    ,category_id:_this.select_class_id, description: _this.description
+                let data = {
+                    ImageUrl: _this.imageUrl, name: _this.item_name, user_id: _this.user_id
+                    , category_id: _this.select_class_id, description: _this.description
                 }
                 console.log(data)
                 axios({
@@ -99,22 +113,26 @@
                     console.log(error);
                 });
             },
-            selectClass(event){
-                let _this=this
+            selectClass(event) {
+                let _this = this
                 _this.select_class_id = event.target.value;
-                console.log("获取到的id是"+_this.select_class_id)//获取option对应的value值 select_class_id是后台约定的提交数据的名称
+                console.log("获取到的id是" + _this.select_class_id)//获取option对应的value值 select_class_id是后台约定的提交数据的名称
             },
+            nextStep() {
+                let _this = this
+                _this.step++
+            }
 
         },
-        mounted(){
-            let _this=this
+        mounted() {
+            let _this = this
             axios({
                 method: "post",
                 url: "/category/getList",
             }).then(function (resp) {
                 console.log(resp.data);
                 if (resp.data.code == 200) {
-                    _this.categoryList=resp.data.data
+                    _this.categoryList = resp.data.data
                 } else {
                     alert(resp.data.msg);
                 }
@@ -122,10 +140,10 @@
                 console.log(error);
             });
         },
-        created(){
-            let _this=this
+        created() {
+            let _this = this
             _this.user_id = sessionStorage.getItem("user_id");
-            console.log("当前操作者:"+_this.user_id)
+            console.log("当前操作者:" + _this.user_id)
         }
     })
 </script>

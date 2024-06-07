@@ -23,18 +23,20 @@
     <div class="main-container">
         <div class="child-container" v-for="item in infoList">
             <div class="image-container">
-                <!--<img v-if="item.picUrl !== null" class="image" src={{item.picUrl}} alt="A science device?">-->
-                <img class="image" src="../img/test.jpg" alt="A science device?">
+                <img v-if="item.picUrl !== null" class="image" src={{"../../"+item.picUrl}} alt="A science device?">
+                <img v-else class="image" src="../img/test.jpg" alt="A science device?">
+            </div>
+            <div class="button-eqpInfo-container">
+                <p class="dpInfo"><strong>{{item.name}}</strong></p>
+                <button class="btn">查看详情</button>
             </div>
         </div>
     </div>
 
     <div class="jump-btn">
-        <div>
             <button @click="prePage()">上一页</button>
             <p>{{pageCurrent}}</p>
             <button @click="nextPage()">下一页</button>
-        </div>
     </div>
     
 </div>

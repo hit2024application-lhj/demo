@@ -31,16 +31,17 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    background-color: #68aeb2;
     width: 1000px;
     height: auto;
     margin: auto;
 }
 
 .child-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: 400px;
     height: 400px;
-    background-color: #666666;
     box-sizing: border-box;
     margin-bottom: 20px;
 }
@@ -48,20 +49,27 @@ body {
 .image-container{
     width: 400px;
     height: 300px;
+    border-radius: 10px;
+}
+
+.button-eqpInfo-container{
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    height: 100px;
+    padding-top: 20px;
 }
 
 
 .text-container {
       width: 800px;
       height: 300px;
-      background-color: red;
       margin-right: 100px;
 }
 
 .text-container-right {
   width: 800px;
   height: 300px;
-  background-color: red;
 }
 
 .head-words {
@@ -142,7 +150,31 @@ input[type="email"]:focus
 }
 
 .jump-btn {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dpInfo {
+    /* 使用导入的字体 */
+    font-family: 'Roboto', sans-serif;
+    /* 字体大小 */
+    font-size: 16px;
+    /* 字体粗细 */
+    font-weight: 400;
+    /* 字体颜色 */
+    color: #333;
+    /* 行高，使文本更易读 */
+    line-height: 1.6;
+    /* 文本对齐方式 */
+    text-align: justify;
+    /* 文本间距 */
+    letter-spacing: 0.5px;
+    /* 其他可能的样式，如边距、内边距等 */
+    margin-bottom: 15px;
+    padding: 0;
 }
