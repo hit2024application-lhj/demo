@@ -19,10 +19,11 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
-    @RequestMapping("/getEquipmetByUserId")
+
     @ResponseBody
-    public String getEquipmetByUserId(@RequestParam int user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
-        return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentsByUserId(user_id)));
+    @RequestMapping("/getEquipmetByUserId")
+    public String getEquipmetByUserId(@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
+        return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentsByEquipmentWithPage(Integer.parseInt(user_id),Integer.parseInt(pageId))));
     }
 
     @ResponseBody

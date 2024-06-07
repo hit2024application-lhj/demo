@@ -56,7 +56,7 @@ public class MyPageHelper<T> {
         int endIndex=Math.min(startIndex+PageSize,totalSize);
         PageResult pageResult=new PageResult();
         pageResult.setRows(data.subList(startIndex,endIndex));
-        pageResult.setTotal(PageNumber);
+        pageResult.setTotal(maxPage);
 
         return pageResult;
     }
