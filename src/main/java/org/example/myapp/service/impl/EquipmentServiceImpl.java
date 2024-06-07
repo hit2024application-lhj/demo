@@ -23,7 +23,7 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
     implements EquipmentService{
 
     //分页大小
-    static final int pageSize=3;
+    static final int pageSize=4;
 
     @Autowired
     private EquipmentMapper equipmentMapper;
