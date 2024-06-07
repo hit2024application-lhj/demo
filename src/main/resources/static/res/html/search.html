@@ -10,7 +10,6 @@
 </head>
 <body>
 <div id="app">
-
     <h1>这里是搜索界面</h1>
     <div class="input-container">
         <div>
@@ -22,58 +21,25 @@
     
     <table class="centered-table" border="1">
     <tbody>
-        <tr>
+        <tr v-for="item in infoList">
             <td>
                 <div class="child-container">
-                    <img class="image" src="../img/test.jpg" alt="A science device?">
+                    <img class="image" src={{item.picUrl}} alt="A science device?">
                 </div>
             </td>
             <td>
                 <div class="text-container">
-                    <h1>DIV1-t</h1>
+                    <h1>{{item.name}}</h1>
                     <div style="height: 200px;background-color: aqua;">
-                    这里是文字介绍<br>
-                    介绍一下<br>
-                    左边的科研设备吧<br>
-                    <br><br><br><br><br>
-                    ...也许应该换一张图片？
+                    <p>id:{{item.id}}</p>
+                        <p>是否借用中？{{item.isLend}}</p>
+                        <p>是否报废？{{item.isScrap}}</p>
+                        <p>描述：{{item.description}}</p>
                     </div>
                     <div>
                         <input class="btn" type="submit" value="查看详情">
                     </div>
     
-                </div>
-            </td>
-            <td>
-                <div class="child-container">
-                    <img class="image" src="../img/test.jpg" alt="A science device?">
-                </div>
-            </td>
-            <td>
-                <div class="text-container-right">
-                    <h1>DIV2-t</h1>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="child-container">
-                    <h1>DIV1</h1>
-                </div>
-            </td>
-            <td>
-                <div class="text-container">
-                    <h1>DIV1-t</h1>
-                </div>
-            </td>
-            <td>
-                <div class="child-container">
-                    <h1>DIV2</h1>
-                </div>
-            </td>
-            <td>
-                <div class="text-container-right">
-                    <h1>DIV2-t</h1>
                 </div>
             </td>
         </tr>
@@ -84,7 +50,6 @@
             <button @click="prePage()">上一页</button>
             <p>{{pageCurrent}}</p>
             <button @click="nextPage()">下一页</button>
-            <button @click="sendMassage()"> 发送</button>
         </div>
     </div>
     
@@ -106,12 +71,14 @@
                 let _this = this
                 if(_this.pageCurrent>1){
                 _this.pageCurrent--
+                    _this.sendMassage()
                 }
             },
             nextPage: function(){
                 let _this = this
                 if(_this.pageCurrent<_this.pageNum){
                 _this.pageCurrent++
+                    _this.sendMassage()
                 }
             },
             sendMassage(){
@@ -124,7 +91,6 @@
                 }).then(function (resp) {
                     console.log(resp.data);
                     if (resp.data.code == 200) {
-                        alert("登录成功！");
                         _this.infoList=resp.data.data.rows
                         _this.pageNum=resp.data.data.total
                     } else {
@@ -138,6 +104,9 @@
         created(){
             let user_id = sessionStorage.getItem("user_id");
             this.userId=user_id
+        },
+        mounted: function (){
+            this.sendMassage()
         }
     })
 </script>

@@ -41,7 +41,7 @@ body {
 }
 
 .child-container {
-    width: 300px;
+    width: 400px;
     height: 300px;
     background-color: green;
     box-sizing: border-box;
@@ -49,14 +49,14 @@ body {
 
 
 .text-container {
-  width: 300px;
+  width: 800px;
   height: 300px;
   background-color: red;
   margin-right: 100px;
 }
 
 .text-container-right {
-  width: 300px;
+  width: 800px;
   height: 300px;
   background-color: red;
 }
@@ -128,7 +128,7 @@ input[type="email"]:focus
   /* 可选：为表格添加一些填充 */  
   padding: 0;  
   /* 可选：为表格设置宽度 */  
-  width: 50%; /* 或者你想要的任何宽度 */  
+  width: 100%; /* 或者你想要的任何宽度 */
 }  
 
 .image{  
