@@ -8,7 +8,7 @@ import java.util.Base64;
 public class ImageUtil {
 
     //路径前缀
-    private static final String preSource="./src/main/resources/static/";
+    private static final String preSource="./pic/";
 
     public static void WriteBase64ToFile(String fileName, String content) {
         String base64Image = content.replaceAll("^data:image/\\w+;base64,", "");
