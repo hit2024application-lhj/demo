@@ -4,6 +4,7 @@ package org.example.myapp.controller;
 import com.alibaba.fastjson.JSON;
 import org.example.myapp.bean.Equipment;
 import org.example.myapp.service.EquipmentService;
+import org.example.myapp.utils.AppInfo;
 import org.example.myapp.utils.ImageUtil;
 import org.example.myapp.utils.ResponseJSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ public class EquipmentController {
     @ResponseBody
     @RequestMapping("/getEquipmetByUserId")
     public String getEquipmetByUserId(@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 84e6d4e76cce1eccef663070f7e7fbc37e734e7c
         return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentsByEquipmentWithPage(Integer.parseInt(user_id),Integer.parseInt(pageId))));
     }
 
@@ -34,7 +38,12 @@ public class EquipmentController {
         if(ImageUrl==null){
             return JSON.toJSONString(ResponseJSON.getERROR("图片过大！请压缩图片"));
         }
+<<<<<<< HEAD
         String filename= "pic/" +category_id+"/"+user_id+"_"+name+".jpg";
+=======
+        String filename=category_id+"_"+user_id+"_"+name+".jpg";
+        String Url= AppInfo.WebRootPath+category_id+"_"+user_id+"_"+name+".jpg";
+>>>>>>> 84e6d4e76cce1eccef663070f7e7fbc37e734e7c
         System.out.println(filename);
         ImageUtil.WriteBase64ToFile(filename,ImageUrl);
         System.out.println("图片保存完毕！！");
@@ -45,7 +54,7 @@ public class EquipmentController {
 
         // 打印Date对象
         System.out.println("当前时间: " + currentDate);
-        Equipment e=new Equipment(name,Integer.valueOf(category_id),filename,currentDate,0,0,Integer.valueOf(user_id),description);
+        Equipment e=new Equipment(name,Integer.valueOf(category_id),Url,currentDate,0,0,Integer.valueOf(user_id),description);
 
         int r=equipmentService.addEquipment(e);
         if (r>0){
