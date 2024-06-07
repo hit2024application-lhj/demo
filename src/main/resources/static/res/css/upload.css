@@ -4,48 +4,158 @@ body {
     background-color: #f9f9f9;
 }
 
-.container {
-    max-width: 400px;
-    margin: 0 auto;
-    margin-top: 100px;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.input-item {
+  width: 320px;
+  border: 0;
+  padding: 10px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid rgb(128, 125, 125);
+  font-size: 15px;
+  outline: none;
 }
 
-.container h1 {
-    text-align: center;
-    margin-bottom: 20px;
+.input-container {
+  display: flex;
+  width: 400px;
+  margin-left: auto;  
+  margin-right: auto;  
 }
 
-.container label {
-    margin-top: 10px;
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
+.background {
+  height: 100%;
+  background-image: linear-gradient(to right, #9bd7ff, #3174e8);
 }
 
-.container input[type="text"],
-.container input[type="password"] {
+.main-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */  
+  align-items: center;     /* 垂直居中（如果需要）*/ 
+  text-align: center;
+  
+  background-color: red;
+  width: 600px;
+  height: 600px;
+  border-radius: 15px;
+  padding: 0 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.child-container {
+    width: 300px;
+    height: 300px;
+    background-color: green;
     box-sizing: border-box;
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
 }
 
-.container input[type="submit"] {
-    margin-top: 10px;
-    width: 100%;
-    background-color: #ff6347;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+.text-container {
+  width: 300px;
+  height: 300px;
+  background-color: red;
+  margin-right: 100px;
 }
 
-.container input[type="submit"]:hover {
-    background-color: #ff4330;
+.text-container-right {
+  width: 300px;
+  height: 300px;
+  background-color: red;
 }
+
+.head-words {
+    margin: 10px;
+}
+
+@keyframes fadeIn {  
+    from { opacity: 0.4; }  
+    to { opacity: 1; }  
+  }
+
+.btn {
+  text-align: center;
+  padding: 10px;
+  width: 200px;
+  border: 0;
+  border-radius: 10px;
+  background-image: linear-gradient(to right, #8494ff, #65edff);
+  color: #fff;
+  transition: background-image 0.3s ease;
+  margin-bottom: 50px;
+}
+
+.btn:hover{
+  background-image: linear-gradient(to right, #91d5ff, #e0f7ff);
+}
+
+.btn:active{
+  background-image: linear-gradient(to right, #4d7690, #68aeb2);
+}
+
+.msg {
+  text-align: center;
+  line-height: 100px;
+}
+
+/* 如果你只想对特定的元素进行样式设置，可以这样做 */  
+.centered-text {  
+    font-family: "Microsoft YaHei", "微软雅黑", "Arial", sans-serif;  
+    text-align: center; /* 水平居中 */  
+    /* 如果需要垂直居中，你可能需要额外的CSS技巧，比如使用flexbox或grid */  
+    display: flex;  
+    justify-content: center; /* 水平居中（flex容器内） */  
+    align-items: center; /* 垂直居中（flex容器内，单行或多行）*/  
+    height: 100px; /* 示例高度，可以根据需要调整 */  
+    color: rebeccapurple;
+}
+
+/* 当输入框获得焦点时 */  
+input[type="text"]:focus,  
+input[type="password"]:focus,  
+input[type="email"]:focus
+/* 你可以根据需要添加其他类型的输入框 */  
+{  
+  /* 你也可以添加其他样式，如背景色、阴影等 */  
+  background-color: #f5f5f5;
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */  
+  transition: background-color 0.3s ease;
+}
+
+.centered-table {  
+  /* 使表格在页面上居中 */  
+  margin-left: auto;  
+  margin-right: auto;  
+  /* 可选：为表格添加边框以便查看 */  
+  border: 1px solid #360606;  
+  /* 可选：为表格添加一些填充 */  
+  padding: 0;  
+  /* 可选：为表格设置宽度 */  
+  width: 50%; /* 或者你想要的任何宽度 */  
+}  
+
+.image{  
+  width: 100%; /* 或其他你想要的宽度 */  
+  height: 100%; /* 或其他你想要的高度，但通常与容器的尺寸相关 */  
+  object-fit: cover; /* 这将保持图片的纵横比，同时填充整个元素的内容框 */  
+  box-sizing: border-box;
+}
+
+.jump-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.custom-file-upload {  
+    position: relative;  
+    display: inline-block;  
+    width: 150px; /* 你可以根据需要设置宽度 */  
+    height: 40px; /* 你可以根据需要设置高度 */  
+    overflow: hidden;  
+    border: 1px solid #ccc;  
+    border-radius: 4px;  
+    background-color: #fff;  
+    cursor: pointer;  
+}  

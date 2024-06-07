@@ -6,14 +6,22 @@
     <script src="../js/vue.js"></script>
     <script src="../js/axios0.18.js"></script>
     <script src="../js/pub.js"></script>
+    <link type="text/css" rel="stylesheet" href="../css/upload.css">
 </head>
 <body>
-<div id="app">
+<div class="main-container">
 <!--    这是上传图片的框-->
     <div>
-        <input class="btn" type="file" @change="onFileChange" />
-        <img :src="imageUrl" alt="Selected Image" />
+        <div>
+            <img :src="imageUrl" alt="Selected Image" class="image"/>
+        </div>
+        <br>
+        <div style="opacity: 1;">
+            <input type="file" @change="onFileChange"/>
+        </div>
     </div>
+</div>
+<div>
 <!--    这是选项框-->
     <div>
         <p>请选择设备分类</p>
