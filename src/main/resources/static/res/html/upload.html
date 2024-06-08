@@ -42,9 +42,9 @@
     </div>
 
     <div class="dropdown">
-        <button class="dropbtn">下拉菜单</button>
-        <div class="dropdown-content">
-            <a v-for="(item,id) in categoryList" :key="id" @click="selectNew(id+1)">{{item.name}}</a>
+        <button class="dropbtn" @click="selectClicked()">下拉菜单</button>
+        <div v-if="ifSelectClicked" class="dropdown-content">
+            <a v-for="(item,id) in categoryList" v-if="!ifSelect" :key="id" @click="selectNew(id+1)">{{item.name}}</a>
         </div>
     </div>
 
@@ -82,7 +82,9 @@
             description: "",
 
             step: 0,
-            imgSelected: 0
+            imgSelected: 0,
+            ifSelect:false,
+            ifSelectClicked:false
         },
         methods: {
             onFileChange(e) {
@@ -140,11 +142,20 @@
             selectNew(id){
                 let _this = this
                 _this.select_class_id = id
+                console.log("获取到的id为"+_this.select_class_id)
+                _this.ifSelect = true
+                _this.ifSelectClicked = !_this.ifSelectClicked
+            },
+            selectClicked(){
+                let _this = this
+                _this.ifSelectClicked = !_this.ifSelectClicked
+                _this.ifSelect = false
             }
 
         },
         mounted() {
             let _this = this
+            _this.ifSelect = false
             axios({
                 method: "post",
                 url: "/category/getList",
