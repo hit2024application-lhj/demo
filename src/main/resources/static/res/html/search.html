@@ -23,7 +23,7 @@
     <div class="main-container">
         <div class="child-container" v-for="item in infoList">
             <div class="image-container">
-                <img v-if="item.picUrl !== null" class="image" src={{"../../"+item.picUrl}} alt="A science device?">
+                <img v-if="item.picUrl !== null" class="image" :src="item.picUrl" alt="A science device?" >
                 <img v-else class="image" src="../img/test.jpg" alt="A science device?">
             </div>
             <div class="button-eqpInfo-container">

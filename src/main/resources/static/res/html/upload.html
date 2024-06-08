@@ -12,13 +12,16 @@
 <div id="app">
     <!--    这是上传图片的框-->
     <div v-if="step == 0" class="main-container">
-        <div class="child-container">
-            <img :src="imageUrl" alt="Selected Image" class="image"/>
-        </div>
-        <div class="button-container">
-            <input type="file" @change="onFileChange"/>
-        </div>
-        <button @click="nextStep()" class="btn">下一步</button>
+            <div class="child-container">
+                <img v-if="imgSelected == 1" :src="imageUrl" alt="Selected Image" class="image"/>
+                <img v-else src="../img/test.jpg" alt="Selected Image" class="image"/>
+            </div>
+            <div class="button-container">
+                <input type="file" @change="onFileChange"/>
+            </div>
+            <div style="width: 500px;background-color: #ffeb9b;display: flex;justify-content: center">
+            <button @click="nextStep()" class="btn">下一步</button>
+            </div>
     </div>
 
     <!--    这是选项框-->
@@ -47,10 +50,12 @@
     </div>
     <!--    这是输入设备详情的框-->
     <div v-if="step == 3" class="choose-container">
-        <p>请输入相关简介描述</p>
-        <textarea v-model="description" style="resize: none;height: 100px;width: 100px"></textarea>
+        <div class="text-container">
+            <p>请输入设备相关的简介或描述</p>
+        </div>
+        <textarea v-model="description" style="resize: none;height: 100px;width: 400px"></textarea>
         <!--    发送数据到后台-->
-        <button @click="sendToBackend()">Send to Backend</button>
+        <button @click="sendToBackend()" class="btn">提交</button>
     </div>
 </div>
 </body>
@@ -68,10 +73,12 @@
             item_name: '',
             description: "",
 
-            step: 0
+            step: 0,
+            imgSelected: 0
         },
         methods: {
             onFileChange(e) {
+                let _this = this;
                 const file = e.target.files[0];
                 if (!file) return;
 
@@ -82,6 +89,7 @@
                     this.imageUrl = e.target.result; // 这是data URL
                 };
                 reader.readAsDataURL(file);
+                _this.imgSelected = 1;
             },
             sendToBackend() {
                 let _this = this;

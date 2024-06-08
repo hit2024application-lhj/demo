@@ -76,3 +76,24 @@
     width: 100%;
     height: 100%;
 }
+
+.btn {
+    text-align: center;
+    padding: 10px;
+    width: 80px;
+    height: 40px;
+    border: 0;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #ff6a6a, #d9702f);
+    color: #fff;
+    transition: background-image 0.3s ease;
+    margin-left: 450px;
+}
+
+.btn:hover{
+    background-image: linear-gradient(to right, #ffb4b4, #ffb386);
+}
+
+.btn:active{
+    background-image: linear-gradient(to right, #832424, #8c4518);
+}

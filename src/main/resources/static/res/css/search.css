@@ -50,6 +50,7 @@ body {
     width: 400px;
     height: 300px;
     border-radius: 10px;
+    border: 3px solid #625959;
 }
 
 .button-eqpInfo-container{
@@ -143,10 +144,12 @@ input[type="email"]:focus
 }  
 
 .image{  
-  width: 100%; /* 或其他你想要的宽度 */  
-  height: 100%; /* 或其他你想要的高度，但通常与容器的尺寸相关 */  
-  object-fit: cover; /* 这将保持图片的纵横比，同时填充整个元素的内容框 */  
-  box-sizing: border-box;
+    width: 100%; /* 或其他你想要的宽度 */
+    height: 100%; /* 或其他你想要的高度，但通常与容器的尺寸相关 */
+    object-fit: cover; /* 这将保持图片的纵横比，同时填充整个元素的内容框 */
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px
 }
 
 .jump-btn {

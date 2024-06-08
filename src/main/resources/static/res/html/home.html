@@ -11,15 +11,15 @@
 </head>
 <body>
 <div id="app">
+    <div style="z-index: 0">
     <header>
         <div class="top_container">
-            <h1 style="margin: 0; padding: 10px; font-size: 28px; text-align: center;">科研设备管理系统</h1>
             <nav>
                 <ul style="list-style-type: none; display: flex; align-items: center; margin: 0; padding: 0;">
-                    <li style="margin-right: 10px;"><a href="/res/pages/home.html"
-                                                       style="text-decoration: none; color: #fff;">首页</a></li>
-                    <li style="margin-right: 10px;"><a href="/res/pages/mydetail.html"
-                                                                          style="text-decoration: none; color: #fff;">个人中心</a>
+<!--                    <li style="margin-right: 10px;"><a href="/res/pages/home.html"-->
+<!--                                                       style="text-decoration: none; color: #fff;">首页</a></li>-->
+<!--                    <li style="margin-right: 10px;"><a href="/res/pages/mydetail.html"-->
+<!--                                                                          style="text-decoration: none; color: #fff;">个人中心</a>-->
                     </li>
                 </ul>
             </nav>
@@ -46,6 +46,12 @@
             <iframe :src="activeItem.url"></iframe>
         </div>
     </div>
+    </div>
+    <div v-if="ifUpLoad" style="background-color: #ff8b37;width: 600px;height: 870px;
+            position: absolute;z-index: 1;left: 600px;top: 20px;border-radius: 10px">
+        <iframe src="upload.html" style="width: 600px;height: 810px"></iframe>
+        <button @click="back" class="btn">返回</button>
+    </div>
 
 </div>
 </body>
@@ -63,7 +69,9 @@
                 {id: 2, name: '报废设备查询', url: 'scrap.html'},
                 {id: 3, name: '已借出设备查询', url: 'lend.html'},
             ],
-            activeItem: null
+            activeItem: null,
+
+            ifUpLoad: false
         },
         methods:{
             setActiveItem(item)
@@ -74,7 +82,10 @@
 
             },
             upload(){
-                window.location.href = "upload.html";
+                this.ifUpLoad = true;
+            },
+            back(){
+                this.ifUpLoad = false;
             }
         },
         created() {

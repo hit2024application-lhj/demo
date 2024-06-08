@@ -38,7 +38,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #4d7690;
+    background-color: #8fc0ff;
     border-radius: 10px;
 }
 
@@ -52,7 +52,6 @@ body {
     margin-top: 100px;
     box-sizing: border-box;
     margin-bottom: 20px;
-    background-color: #b268a3;
 }
 
 .button-container{
@@ -61,7 +60,6 @@ body {
     justify-content: center;
     height: 80px;
     width: 500px;
-    background-color: #4CAF50;
 }
 
 .image-container{
@@ -82,7 +80,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #81c2ec;
+    background-color: #8fc0ff;
     border-radius: 10px;
 }
 
@@ -128,6 +126,8 @@ body {
     transition: background-image 0.3s ease;
     margin-bottom: 50px;
     margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .btn:hover{
@@ -158,11 +158,12 @@ body {
 /* 当输入框获得焦点时 */
 input[type="text"]:focus,
 input[type="password"]:focus,
-input[type="email"]:focus
+input[type="email"]:focus,
+textarea:focus
     /* 你可以根据需要添加其他类型的输入框 */
 {
     /* 你也可以添加其他样式，如背景色、阴影等 */
-    background-color: #f5f5f5;
+    background-color: #b6b6b6;
     /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
     transition: background-color 0.3s ease;
 }
