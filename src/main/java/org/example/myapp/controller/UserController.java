@@ -19,6 +19,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @return
+     */
     @PostMapping("/login")
     @ResponseBody
     public String login(String username, String password) {
@@ -32,6 +38,12 @@ public class UserController {
         else return JSON.toJSONString(ResponseJSON.getERROR("账号或密码错误"));
     }
 
+    /**
+     * 注册
+     * @param username
+     * @param password
+     * @return
+     */
     @ResponseBody
     @PostMapping("/register")
     public String register(String username, String password) {
@@ -44,6 +56,13 @@ public class UserController {
         return JSON.toJSONString(ResponseJSON.getOK("OK"));
     }
 
+    /**
+     * 更新用户数据
+     * @param username
+     * @param password
+     * @param new_password
+     * @return
+     */
     @ResponseBody
     @PostMapping("/update")
     public String change(String username, String password,String new_password) {

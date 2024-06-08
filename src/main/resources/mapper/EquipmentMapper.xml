@@ -21,4 +21,7 @@
         pic_url,date,is_lend,
         is_scrap,user_id,description
     </sql>
+    <select id="findEquipmentByName" resultType="org.example.myapp.bean.Equipment">
+        SELECT * FROM equipment WHERE name LIKE CONCAT('%', #{subname}, '%') and user_id = #{userId}
+    </select>
 </mapper>

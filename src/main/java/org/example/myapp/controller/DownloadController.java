@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.IOException;
 
+/**
+ * 管理静态资源
+ */
 @Controller
 public class DownloadController {
     //https://localhost//downloadhospitalimg/filename/xxxx
