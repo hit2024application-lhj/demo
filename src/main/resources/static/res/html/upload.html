@@ -7,6 +7,7 @@
     <script src="../js/axios0.18.js"></script>
     <script src="../js/pub.js"></script>
     <link type="text/css" rel="stylesheet" href="../css/upload.css">
+    <link type="text/css" rel="stylesheet" href="../css/dropDown.css">
 </head>
 <body>
 <div id="app">
@@ -29,7 +30,7 @@
         <div class="text-container">
             <p>请选择设备分类</p>
         </div>
-        <select class="text-container" @change="selectClass($event)">
+        <select class="btn" @change="selectClass($event)">
             <div>
                 <option value=0>请选择</option>
             </div>
@@ -38,6 +39,13 @@
             </option>
         </select>
         <button @click="nextStep()" class="btn">下一步</button>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">下拉菜单</button>
+        <div class="dropdown-content">
+            <a v-for="(item,id) in categoryList" :key="id" @click="selectNew(id+1)">{{item.name}}</a>
+        </div>
     </div>
 
     <!--    这里是输入设备名称的框-->
@@ -113,7 +121,6 @@
                     console.log(resp.data);
                     if (resp.data.code == 200) {
                         alert(resp.data.msg);
-                        window.history.go(-1);
                     } else {
                         alert(resp.data.msg);
                     }
@@ -129,6 +136,10 @@
             nextStep() {
                 let _this = this
                 _this.step++
+            },
+            selectNew(id){
+                let _this = this
+                _this.select_class_id = id
             }
 
         },

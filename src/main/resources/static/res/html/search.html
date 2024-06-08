@@ -14,9 +14,9 @@
     <div class="input-container">
         <div>
             <input class="input-item" placeholder="search" 
-            type="text" id="username" required>
+            type="text" v-model="keyword" required>
         </div>
-            <input class="btn" type="submit" value="查询">
+            <input class="btn" type="submit" @click="search" value="查询">
     </div>
     
 
@@ -34,9 +34,9 @@
     </div>
 
     <div class="jump-btn">
-            <button @click="prePage()">上一页</button>
-            <p>{{pageCurrent}}</p>
-            <button @click="nextPage()">下一页</button>
+            <button @click="prePage()" class="btn2">上一页</button>
+            <p>{{pageCurrent}}/{{pageNum}}</p>
+            <button @click="nextPage()" class="btn2">下一页</button>
     </div>
     
 </div>
@@ -73,6 +73,25 @@
                 axios({
                     method: "post",
                     url: "/equipment/getEquipmetByUserId",
+                    data: convertToQueryString(data)
+                }).then(function (resp) {
+                    console.log(resp.data);
+                    if (resp.data.code == 200) {
+                        _this.infoList=resp.data.data.rows
+                        _this.pageNum=resp.data.data.total
+                    } else {
+                        alert(resp.data.msg);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            search(){
+                let _this = this;
+                let data = {user_id: _this.userId, pageId: _this.pageCurrent, keyword:_this.keyword};
+                axios({
+                    method: "post",
+                    url: "/equipment/search",
                     data: convertToQueryString(data)
                 }).then(function (resp) {
                     console.log(resp.data);

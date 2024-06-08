@@ -102,6 +102,26 @@ body {
   background-image: linear-gradient(to right, #4d7690, #68aeb2);
 }
 
+.btn2 {
+    text-align: center;
+    padding: 10px;
+    width: 80px;
+    border: 0;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #c09f4f, #a29826);
+    color: #fff;
+    transition: background-image 0.3s ease;
+    margin-bottom: 50px;
+}
+
+.btn2:hover{
+    background-image: linear-gradient(to right, #e7cd8f, #f1e569);
+}
+
+.btn2:active{
+    background-image: linear-gradient(to right, #705f35, #6e6713);
+}
+
 .msg {
   text-align: center;
   line-height: 100px;
