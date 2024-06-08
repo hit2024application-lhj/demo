@@ -23,9 +23,24 @@ public interface EquipmentService extends IService<Equipment> {
      */
     List<Equipment> getEquipmentsByUserId(Integer user_id);
 
+    /**
+     * 分页查找
+     * @param user_id
+     * @param page
+     * @return
+     */
     PageResult getEquipmentsByEquipmentWithPage(Integer user_id, int page);
 
     int addEquipment(Equipment equipment);
+
+    /**
+     * 字符串匹配模糊查找
+     * @param user_id
+     * @param subname
+     * @param page
+     * @return
+     */
+    PageResult getEquipmentsBySubName(Integer user_id,String subname ,int page);
 
     int deleteEquipmentById(int id);
 

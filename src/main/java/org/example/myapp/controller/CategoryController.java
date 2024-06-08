@@ -16,6 +16,10 @@ public class CategoryController {
     private CategoryService categoryService;
 
 
+    /**
+     * 查询科研设备类型列表
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/getList")
     public String getCategoryList(){

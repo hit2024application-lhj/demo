@@ -23,7 +23,7 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
     implements EquipmentService{
 
     //分页大小
-    static final int pageSize=3;
+    static final int pageSize=4;
 
     @Autowired
     private EquipmentMapper equipmentMapper;
@@ -64,7 +64,12 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
         return pageHelper.getPageResult(pageId,pageSize);
     }
 
-
+    @Override
+    public PageResult getEquipmentsBySubName(Integer user_id, String subname, int pageId) {
+        List<Equipment> lists=equipmentMapper.findEquipmentByName(subname,user_id);
+        MyPageHelper<Equipment> pageHelper=new MyPageHelper<>(lists);
+        return pageHelper.getPageResult(pageId,pageSize);
+    }
 
 
 
@@ -73,6 +78,8 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
     public int addEquipment(Equipment equipment) {
         return equipmentMapper.insert(equipment);
     }
+
+
 
     @Override
     public int deleteEquipmentById(int id) {

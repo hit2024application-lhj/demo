@@ -21,12 +21,50 @@ public class EquipmentController {
     private EquipmentService equipmentService;
 
 
+    /**
+     * 主页初始化时更新的数据
+     * @param user_id
+     * @param pageId
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/getEquipmetByUserId")
     public String getEquipmetByUserId(@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
-        return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentsByEquipmentWithPage(Integer.parseInt(user_id),Integer.parseInt(pageId))));
+        return JSON.toJSONString(
+                ResponseJSON.getOK(
+                        equipmentService.getEquipmentsByEquipmentWithPage(Integer.parseInt(user_id),Integer.parseInt(pageId)
+                        )
+                )
+        );
     }
 
+    /**
+     * 这是字符串搜索匹配
+     * @param keyword
+     * @param user_id
+     * @param pageId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/search")
+    public String search(@RequestParam String keyword,@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
+        return JSON.toJSONString(
+                ResponseJSON.getOK(
+                        equipmentService.getEquipmentsBySubName(Integer.parseInt(user_id),keyword,Integer.parseInt(pageId)
+                        )
+                )
+        );
+    }
+
+    /**
+     * 上传数据
+     * @param ImageUrl
+     * @param name
+     * @param user_id
+     * @param category_id
+     * @param description
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/upload")
     public String upload(String ImageUrl,@RequestParam String name,@RequestParam String user_id,@RequestParam String category_id,@RequestParam String description)
@@ -58,10 +96,17 @@ public class EquipmentController {
     }
 
 
+    /**
+     * 测试
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/test")
     public String test() {
-        return JSON.toJSONString(ResponseJSON.getOK("ok",equipmentService.getEquipmentsByEquipmentWithPage(1,2)));
+        return JSON.toJSONString(ResponseJSON.getOK(
+                "ok",equipmentService.getEquipmentsBySubName(1,"电脑",1)
+            )
+        );
     }
 
 }
