@@ -43,7 +43,12 @@ public class MyPageHelper<T> {
      * @return
      */
     public Integer getTotalPage(int PageNumber,int PageSize){
-        int maxPage=totalSize/PageSize+1;
+        int maxPage;
+        if(totalSize%PageSize==0){
+            maxPage=totalSize/PageSize;
+        }else {
+            maxPage=totalSize/PageSize+1;
+        }
         PageNumber=Math.min(PageNumber,maxPage);
         return PageNumber;
     }
@@ -55,7 +60,12 @@ public class MyPageHelper<T> {
      * @return
      */
     public PageResult getPageResult(int PageNumber,int PageSize){
-        int maxPage=totalSize/PageSize+1;
+        int maxPage;
+        if(totalSize%PageSize==0){
+            maxPage=totalSize/PageSize;
+        }else {
+            maxPage=totalSize/PageSize+1;
+        }
         PageNumber=Math.min(PageNumber,maxPage);
         int startIndex=(PageNumber-1)*PageSize;
         int endIndex=Math.min(startIndex+PageSize,totalSize);
