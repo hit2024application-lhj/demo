@@ -91,6 +91,52 @@ public class EquipmentController {
 
 
     /**
+     * 根据设备id进行查询返回详细信息
+     * @param equipment_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getItem")
+    public String item(String equipment_id){
+        return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentById(Integer.parseInt(equipment_id))));
+    }
+
+    /**
+     * 根据id借出设备
+     * @param equipment_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/lend")
+    public String lend(String equipment_id){
+        equipmentService.lendEquipmentById(Integer.parseInt(equipment_id));
+        return JSON.toJSONString(ResponseJSON.getOK());
+    }
+    /**
+     * 将对应id的设备标记为已经归还
+     * @param equipment_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/recover")
+    public String recover(String equipment_id){
+        equipmentService.recoveryEquipmentById(Integer.parseInt(equipment_id));
+        return JSON.toJSONString(ResponseJSON.getOK());
+    }
+
+    /**
+     * 根据id报废设备
+     * @param equipment_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/scrap")
+    public String scrap(String equipment_id){
+        equipmentService.scrapEquipmentById(Integer.parseInt(equipment_id));
+        return JSON.toJSONString(ResponseJSON.getOK());
+    }
+
+    /**
      * 测试
      * @return
      */

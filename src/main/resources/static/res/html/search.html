@@ -28,7 +28,7 @@
             </div>
             <div class="button-eqpInfo-container">
                 <p class="dpInfo"><strong>{{item.name}}</strong></p>
-                <button class="btn">查看详情</button>
+                <button @click="getItem(item.id)" class="btn">查看详情</button>
             </div>
         </div>
     </div>
@@ -84,6 +84,11 @@
                 }).catch(function (error) {
                     console.log(error);
                 });
+            },
+            // e_id是设备id
+            getItem:function (e_id){
+                let source="equipment.html?id="+e_id
+                window.location.href=source
             }
         },
         created(){
@@ -91,9 +96,6 @@
             this.userId=user_id
             this.search()
             console.log("初始化力！！！")
-        },
-        mounted: function (){
-
         }
     })
 </script>

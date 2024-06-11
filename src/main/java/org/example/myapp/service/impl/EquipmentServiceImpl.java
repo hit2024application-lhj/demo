@@ -41,7 +41,7 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
 
     @Override
     public Equipment getEquipmentById(int id) {
-        return null;
+        return equipmentMapper.selectById(id);
     }
 
     @Override
