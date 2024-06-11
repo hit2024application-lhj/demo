@@ -20,24 +20,6 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
-
-    /**
-     * 主页初始化时更新的数据
-     * @param user_id
-     * @param pageId
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("/getEquipmetByUserId")
-    public String getEquipmetByUserId(@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
-        return JSON.toJSONString(
-                ResponseJSON.getOK(
-                        equipmentService.getEquipmentsByEquipmentWithPage(Integer.parseInt(user_id),Integer.parseInt(pageId)
-                        )
-                )
-        );
-    }
-
     /**
      * 这是字符串搜索匹配
      * @param keyword
@@ -48,12 +30,24 @@ public class EquipmentController {
     @ResponseBody
     @RequestMapping("/search")
     public String search(@RequestParam String keyword,@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
-        return JSON.toJSONString(
-                ResponseJSON.getOK(
-                        equipmentService.getEquipmentsBySubName(Integer.parseInt(user_id),keyword,Integer.parseInt(pageId)
-                        )
-                )
-        );
+        System.out.println("!!-------------"+keyword+"--------------!!!");
+        if(keyword.equals("undefined")){
+            return JSON.toJSONString(
+                    ResponseJSON.getOK(
+                            equipmentService.getEquipmentsByEquipmentWithPage(Integer.parseInt(user_id),Integer.parseInt(pageId)
+                            )
+                    )
+            );
+        }
+        else {
+            return JSON.toJSONString(
+                    ResponseJSON.getOK(
+                            equipmentService.getEquipmentsBySubName(Integer.parseInt(user_id),keyword,Integer.parseInt(pageId)
+                            )
+                    )
+            );
+        }
+
     }
 
     /**
