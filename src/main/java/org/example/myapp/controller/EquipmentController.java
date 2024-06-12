@@ -20,24 +20,6 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
-
-    /**
-     * 主页初始化时更新的数据
-     * @param user_id
-     * @param pageId
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("/getEquipmetByUserId")
-    public String getEquipmetByUserId(@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
-        return JSON.toJSONString(
-                ResponseJSON.getOK(
-                        equipmentService.getEquipmentsByEquipmentWithPage(Integer.parseInt(user_id),Integer.parseInt(pageId)
-                        )
-                )
-        );
-    }
-
     /**
      * 这是字符串搜索匹配
      * @param keyword
@@ -48,12 +30,24 @@ public class EquipmentController {
     @ResponseBody
     @RequestMapping("/search")
     public String search(@RequestParam String keyword,@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
-        return JSON.toJSONString(
-                ResponseJSON.getOK(
-                        equipmentService.getEquipmentsBySubName(Integer.parseInt(user_id),keyword,Integer.parseInt(pageId)
-                        )
-                )
-        );
+        System.out.println("!!-------------"+keyword+"--------------!!!");
+        if(keyword.equals("undefined")){
+            return JSON.toJSONString(
+                    ResponseJSON.getOK(
+                            equipmentService.getEquipmentsByEquipmentWithPage(Integer.parseInt(user_id),Integer.parseInt(pageId)
+                            )
+                    )
+            );
+        }
+        else {
+            return JSON.toJSONString(
+                    ResponseJSON.getOK(
+                            equipmentService.getEquipmentsBySubName(Integer.parseInt(user_id),keyword,Integer.parseInt(pageId)
+                            )
+                    )
+            );
+        }
+
     }
 
     /**
@@ -95,6 +89,52 @@ public class EquipmentController {
         }
     }
 
+
+    /**
+     * 根据设备id进行查询返回详细信息
+     * @param equipment_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getItem")
+    public String item(String equipment_id){
+        return JSON.toJSONString(ResponseJSON.getOK(equipmentService.getEquipmentById(Integer.parseInt(equipment_id))));
+    }
+
+    /**
+     * 根据id借出设备
+     * @param equipment_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/lend")
+    public String lend(String equipment_id){
+        equipmentService.lendEquipmentById(Integer.parseInt(equipment_id));
+        return JSON.toJSONString(ResponseJSON.getOK());
+    }
+    /**
+     * 将对应id的设备标记为已经归还
+     * @param equipment_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/recover")
+    public String recover(String equipment_id){
+        equipmentService.recoveryEquipmentById(Integer.parseInt(equipment_id));
+        return JSON.toJSONString(ResponseJSON.getOK());
+    }
+
+    /**
+     * 根据id报废设备
+     * @param equipment_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/scrap")
+    public String scrap(String equipment_id){
+        equipmentService.scrapEquipmentById(Integer.parseInt(equipment_id));
+        return JSON.toJSONString(ResponseJSON.getOK());
+    }
 
     /**
      * 测试

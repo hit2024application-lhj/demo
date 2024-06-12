@@ -27,7 +27,7 @@
             </div>
             <div class="button-eqpInfo-container">
                 <p class="dpInfo"><strong>{{item.name}}</strong></p>
-                <button class="btn">查看详情</button>
+                <button @click="getItem(item.id)" class="btn">查看详情</button>
             </div>
         </div>
     </div>
@@ -42,50 +42,30 @@
 
 </body>
 <script>
-    const aaa=[];
     new Vue({
         el:"#app",
         data:{
             pageCurrent:1,
-            pageNum:10,
+            pageNum:0,
             infoList:[],
-            userId:1
+            userId:1,
         },
         methods:{
             prePage: function(){
                 let _this = this
                 if(_this.pageCurrent>1){
                 _this.pageCurrent--
-                    _this.sendMassage()
+                    _this.search()
                 }
             },
             nextPage: function(){
                 let _this = this
                 if(_this.pageCurrent<_this.pageNum){
                 _this.pageCurrent++
-                    _this.sendMassage()
+                    _this.search()
                 }
             },
-            sendMassage(){
-                let _this = this;
-                let data = {user_id: _this.userId, pageId: _this.pageCurrent};
-                axios({
-                    method: "post",
-                    url: "/equipment/getEquipmetByUserId",
-                    data: convertToQueryString(data)
-                }).then(function (resp) {
-                    console.log(resp.data);
-                    if (resp.data.code == 200) {
-                        _this.infoList=resp.data.data.rows
-                        _this.pageNum=resp.data.data.total
-                    } else {
-                        alert(resp.data.msg);
-                    }
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            search(){
+            search: function(){
                 let _this = this;
                 let data = {user_id: _this.userId, pageId: _this.pageCurrent, keyword:_this.keyword};
                 axios({
@@ -103,14 +83,18 @@
                 }).catch(function (error) {
                     console.log(error);
                 });
+            },
+            // e_id是设备id
+            getItem:function (e_id){
+                let source="equipment.html?id="+e_id
+                window.location.href=source
             }
         },
         created(){
             let user_id = sessionStorage.getItem("user_id");
             this.userId=user_id
-        },
-        mounted: function (){
-            this.sendMassage()
+            this.search()
+            console.log("初始化力！！！")
         }
     })
 </script>

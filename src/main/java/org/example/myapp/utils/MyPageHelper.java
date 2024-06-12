@@ -70,9 +70,14 @@ public class MyPageHelper<T> {
         int startIndex=(PageNumber-1)*PageSize;
         int endIndex=Math.min(startIndex+PageSize,totalSize);
         PageResult pageResult=new PageResult();
-        pageResult.setRows(data.subList(startIndex,endIndex));
-        pageResult.setTotal(maxPage);
-
+        if (this.data.size()==0){
+            pageResult.setRows(null);
+            pageResult.setTotal(maxPage);
+        }
+        else {
+            pageResult.setRows(data.subList(startIndex,endIndex));
+            pageResult.setTotal(maxPage);
+        }
         return pageResult;
     }
 }
