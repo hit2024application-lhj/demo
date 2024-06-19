@@ -2,6 +2,7 @@ package org.example.myapp.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import org.example.myapp.Vo.UserVo;
 import org.example.myapp.bean.User;
 import org.example.myapp.service.UserService;
 import org.example.myapp.utils.ResponseJSON;
@@ -33,7 +34,7 @@ public class UserController {
             return JSON.toJSONString(ResponseJSON.getERROR("账号或密码错误"));
         }
         if(password.equals(u.getUserKey())){
-            return JSON.toJSONString(ResponseJSON.getOK("OK",u));
+            return JSON.toJSONString(ResponseJSON.getOK("OK",new UserVo(u)));
         }
         else return JSON.toJSONString(ResponseJSON.getERROR("账号或密码错误"));
     }

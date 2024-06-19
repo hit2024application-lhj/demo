@@ -56,8 +56,9 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
 
 
         QueryWrapper<Equipment> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", user_id);
-
+        if(user_id!=-1){
+            queryWrapper.eq("user_id", user_id);
+        }
         List<Equipment> lists=equipmentMapper.selectList(queryWrapper);
         MyPageHelper<Equipment> pageHelper=new MyPageHelper<>(lists);
 

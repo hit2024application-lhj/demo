@@ -30,7 +30,6 @@ public interface EquipmentService extends IService<Equipment> {
      * @return
      */
     PageResult getEquipmentsByEquipmentWithPage(Integer user_id, int page);
-
     int addEquipment(Equipment equipment);
 
     /**

@@ -21,7 +21,7 @@ public class EquipmentController {
     private EquipmentService equipmentService;
 
     /**
-     * 这是字符串搜索匹配
+     * 这是字符串搜索匹配,学生端搜索还是调用这个接口，但是user_id设置为-1就行！！！！
      * @param keyword
      * @param user_id
      * @param pageId
