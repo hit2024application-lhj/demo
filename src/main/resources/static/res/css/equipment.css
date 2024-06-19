@@ -30,16 +30,25 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    width: 500px;
-    height: 600px;
+    align-items: center;
+    width: 1500px;
+    height: 800px;
     margin: auto;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #8fc0ff;
     border-radius: 10px;
+}
+
+.intro-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    padding-left: 100px;
+    width: 700px;
+    height: 450px;
 }
 
 .child-container {
@@ -56,16 +65,18 @@ body {
 }
 
 .button-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 80px;
-    width: 500px;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .image-container{
-    width: 400px;
-    height: 300px;
+    margin-top: 150px;
+    margin-bottom: 150px;
+    width: 600px;
+    height: 450px;
+    border-radius: 30px;
+    border: 3px solid #625959;
 }
 
 .choose-container{
@@ -118,17 +129,14 @@ body {
 .btn {
     text-align: center;
     padding: 10px;
-    width: 80px;
-    height: 40px;
+    width: 160px;
+    height: 80px;
+    font-size: large;
     border: 0;
     border-radius: 10px;
     background-image: linear-gradient(to right, #8494ff, #65edff);
     color: #fff;
     transition: background-image 0.3s ease;
-    margin-bottom: 50px;
-    margin-top: 50px;
-    margin-left: 50px;
-    margin-right: 50px;
 }
 
 .btn:hover{
@@ -136,26 +144,6 @@ body {
 }
 
 .btn:active{
-    background-image: linear-gradient(to right, #4d7690, #68aeb2);
-}
-
-.btn2 {
-    text-align: center;
-    padding: 10px;
-    width: 80px;
-    height: 40px;
-    border: 0;
-    border-radius: 10px;
-    background-image: linear-gradient(to right, #8494ff, #65edff);
-    color: #fff;
-    transition: background-image 0.3s ease;
-}
-
-.btn2:hover{
-    background-image: linear-gradient(to right, #91d5ff, #e0f7ff);
-}
-
-.btn2:active{
     background-image: linear-gradient(to right, #4d7690, #68aeb2);
 }
 
@@ -206,6 +194,8 @@ textarea:focus
     height: 100%; /* 或其他你想要的高度，但通常与容器的尺寸相关 */
     object-fit: cover; /* 这将保持图片的纵横比，同时填充整个元素的内容框 */
     box-sizing: border-box;
+    border-radius: 30px;
+    border: 3px solid #625959;
 }
 
 .jump-btn {

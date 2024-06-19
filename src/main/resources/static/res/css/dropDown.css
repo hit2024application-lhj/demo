@@ -1,11 +1,13 @@
 /* 下拉按钮样式 */
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: #354a7c;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+    border-radius: 10px;
+    width: 100px;
 }
 
 /* 容器 <div> - 需要定位下拉内容 */
@@ -35,5 +37,9 @@
 
 /* 当下拉内容显示后修改下拉按钮的背景颜色 */
 .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
+    background-color: #6e8ed9;
+}
+
+.dropdown:active .dropbtn{
+    background-color: #2f3749;
 }

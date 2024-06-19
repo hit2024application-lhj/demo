@@ -18,10 +18,8 @@
                 <img v-else src="../img/test.jpg" alt="Selected Image" class="image"/>
             </div>
             <div class="button-container">
-                <input type="file" @change="onFileChange"/>
-            </div>
-            <div style="width: 500px;background-color: #ffeb9b;display: flex;justify-content: center">
-            <button @click="nextStep()" class="btn">下一步</button>
+                <input type="file" @change="onFileChange" style="margin-top: 10px"/>
+                <button @click="nextStep()" class="btn2">下一步</button>
             </div>
     </div>
 
@@ -30,22 +28,15 @@
         <div class="text-container">
             <p>请选择设备分类</p>
         </div>
-        <select class="btn" @change="selectClass($event)">
-            <div>
-                <option value=0>请选择</option>
+        <div class="text-container">
+        <div class="dropdown">
+            <button class="dropbtn" @click="selectClicked()">{{itemSelected}}</button>
+            <div v-if="ifSelectClicked" class="dropdown-content">
+                <a v-for="(item,id) in categoryList" v-if="!ifSelect" :key="id" @click="selectNew(id+1,item.name)">{{item.name}}</a>
             </div>
-            <option v-for="(item,id) in categoryList" :key="id" :value="item.id">
-                {{item.name}}
-            </option>
-        </select>
-        <button @click="nextStep()" class="btn">下一步</button>
-    </div>
-
-    <div class="dropdown">
-        <button class="dropbtn" @click="selectClicked()">下拉菜单</button>
-        <div v-if="ifSelectClicked" class="dropdown-content">
-            <a v-for="(item,id) in categoryList" v-if="!ifSelect" :key="id" @click="selectNew(id+1)">{{item.name}}</a>
         </div>
+        </div>
+        <button @click="nextStep()" class="btn">下一步</button>
     </div>
 
     <!--    这里是输入设备名称的框-->
@@ -84,7 +75,8 @@
             step: 0,
             imgSelected: 0,
             ifSelect:false,
-            ifSelectClicked:false
+            ifSelectClicked:false,
+            itemSelected:"未选择"
         },
         methods: {
             onFileChange(e) {
@@ -139,12 +131,13 @@
                 let _this = this
                 _this.step++
             },
-            selectNew(id){
+            selectNew(id,name){
                 let _this = this
                 _this.select_class_id = id
                 console.log("获取到的id为"+_this.select_class_id)
                 _this.ifSelect = true
                 _this.ifSelectClicked = !_this.ifSelectClicked
+                _this.itemSelected = name
             },
             selectClicked(){
                 let _this = this

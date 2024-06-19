@@ -3,8 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios0.18.js"></script>
+    <script src="../js/pub.js"></script>
+    <link type="text/css" rel="stylesheet" href="../css/lend.css">
 </head>
 <body>
-<h1>这里是借出设备管理界面</h1>
+<div id="app">
+    <h1>这里是借用设备界面</h1>
+    <div class="input-container">
+        <div>
+            <input class="input-item" placeholder="search"
+                   type="text" v-model="keyword" required>
+        </div>
+        <input class="btn" type="submit" @click="search" value="查询">
+    </div>
+
+
+    <div class="main-container">
+        <div class="child-container" v-for="item in infoList">
+            <div class="image-container">
+                <img v-if="item.picUrl !== null" class="image" :src="item.picUrl" alt="A science device?" >
+                <img v-else class="image" src="../img/test.jpg" alt="A science device?">
+                <img v-if="item.isLend == 1 && item.isScrap == 0" class="image-lend" src="../img/lend.png">
+                <img v-if="item.isScrap == 1" class="image-lend" src="../img/scrap.png">
+            </div>
+            <div class="button-eqpInfo-container">
+                <p class="dpInfo"><strong>{{item.name}}</strong></p>
+                <button v-if="item.isLend == 0" @click="lend(item.id)" class="btn">借用</button>
+                <button v-if="item.isLend == 1" @click="recover(item.id)" class="btn">归还</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="jump-btn">
+        <button @click="prePage()" class="btn2">上一页</button>
+        <p>{{pageCurrent}}/{{pageNum}}</p>
+        <button @click="nextPage()" class="btn2">下一页</button>
+    </div>
+
+</div>
+
 </body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            pageCurrent:1,
+            pageNum:0,
+            infoList:[],
+            userId:1,
+        },
+        methods:{
+            prePage: function(){
+                let _this = this
+                if(_this.pageCurrent>1){
+                    _this.pageCurrent--
+                    _this.search()
+                }
+            },
+            nextPage: function(){
+                let _this = this
+                if(_this.pageCurrent<_this.pageNum){
+                    _this.pageCurrent++
+                    _this.search()
+                }
+            },
+            search: function(){
+                let _this = this;
+                let data = {user_id: _this.userId, pageId: _this.pageCurrent, keyword:_this.keyword};
+                axios({
+                    method: "post",
+                    url: "/equipment/search",
+                    data: convertToQueryString(data)
+                }).then(function (resp) {
+                    console.log(resp.data);
+                    if (resp.data.code == 200) {
+                        _this.infoList=resp.data.data.rows
+                        _this.pageNum=resp.data.data.total
+                    } else {
+                        alert(resp.data.msg);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            // e_id是设备id
+            getItem:function (e_id){
+                let source="equipment.html?id="+e_id
+                window.location.href=source
+            },
+            lend: function (e_id){
+                let _this = this;
+                let data = {equipment_id: e_id};
+                axios({
+                    method: "post",
+                    url: "/equipment/lend",
+                    data: convertToQueryString(data)
+                }).then(function (resp) {
+                    console.log(resp.data);
+                    if (resp.data.code == 200) {
+                        alert("借用成功！")
+                    } else {
+                        alert(resp.data.msg);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            recover: function (e_id){
+                let _this = this;
+                let data = {equipment_id: e_id};
+                axios({
+                    method: "post",
+                    url: "/equipment/recover",
+                    data: convertToQueryString(data)
+                }).then(function (resp) {
+                    console.log(resp.data);
+                    if (resp.data.code == 200) {
+                        alert("归还成功！")
+                    } else {
+                        alert(resp.data.msg);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        },
+        created(){
+            let user_id = sessionStorage.getItem("user_id");
+            this.userId=user_id
+            this.search()
+            console.log("初始化力！！！")
+        }
+    })
+</script>
 </html>

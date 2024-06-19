@@ -87,7 +87,7 @@
     background-image: linear-gradient(to right, #ff6a6a, #d9702f);
     color: #fff;
     transition: background-image 0.3s ease;
-    margin-left: 450px;
+    margin-left: 500px;
 }
 
 .btn:hover{

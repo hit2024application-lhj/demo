@@ -24,6 +24,8 @@
             <div class="image-container">
                 <img v-if="item.picUrl !== null" class="image" :src="item.picUrl" alt="A science device?" >
                 <img v-else class="image" src="../img/test.jpg" alt="A science device?">
+                <img v-if="item.isLend == 1 && item.isScrap == 0" class="image-lend" src="../img/lend.png">
+                <img v-if="item.isScrap == 1" class="image-lend" src="../img/scrap.png">
             </div>
             <div class="button-eqpInfo-container">
                 <p class="dpInfo"><strong>{{item.name}}</strong></p>
