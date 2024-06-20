@@ -24,7 +24,8 @@
         </div>
         <p class="or">or</p>
         <div>
-            <button @click="register" class="btn2">注册</button>
+            <button @click="register()" class="btn2">注册</button>
+            <button @click="student_register()" class="btn2">学生注册</button>
         </div>
     </div>
     <div style="bottom: 0;right: 0;position: absolute">
@@ -64,6 +65,9 @@
             },
             register(){
                 window.location.href = "register.html";
+            },
+            student_register(){
+                window.location.href = "student_register.html"
             }
         }
     })
