@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索页面</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios0.18.js"></script>
+    <script src="../js/pub.js"></script>
+    <link type="text/css" rel="stylesheet" href="../css/search.css">
+</head>
+<body>
+<div id="app">
+    <div class="input-container">
+        <div>
+            <input class="input-item" placeholder="search" 
+            type="text" v-model="keyword" required>
+        </div>
+            <input class="btn" type="submit" @click="search" value="查询">
+    </div>
+    
+
+    <div class="main-container">
+        <div class="child-container" v-for="item in infoList">
+            <div class="image-container">
+                <img v-if="item.picUrl !== null" class="image" :src="item.picUrl" alt="A science device?" >
+                <img v-else class="image" src="../img/test.jpg" alt="A science device?">
+                <img v-if="item.isLend == 1 && item.isScrap == 0" class="image-lend" src="../img/lend.png">
+                <img v-if="item.isScrap == 1" class="image-lend" src="../img/scrap.png">
+            </div>
+            <div class="button-eqpInfo-container">
+                <p class="dpInfo"><strong>{{item.name}}</strong></p>
+                <button @click="getItem(item.id)" class="btn">查看详情</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="jump-btn">
+            <button @click="prePage()" class="btn2">上一页</button>
+            <p>{{pageCurrent}}/{{pageNum}}</p>
+            <button @click="nextPage()" class="btn2">下一页</button>
+    </div>
+    
+</div>
+
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            pageCurrent:1,
+            pageNum:0,
+            infoList:[],
+            userId:-1,
+        },
+        methods:{
+            prePage: function(){
+                let _this = this
+                if(_this.pageCurrent>1){
+                _this.pageCurrent--
+                    _this.search()
+                }
+            },
+            nextPage: function(){
+                let _this = this
+                if(_this.pageCurrent<_this.pageNum){
+                _this.pageCurrent++
+                    _this.search()
+                }
+            },
+            search: function(){
+                let _this = this;
+                let data = {user_id: _this.userId, pageId: _this.pageCurrent, keyword:_this.keyword};
+                axios({
+                    method: "post",
+                    url: "/equipment/search",
+                    data: convertToQueryString(data)
+                }).then(function (resp) {
+                    console.log(resp.data);
+                    if (resp.data.code == 200) {
+                        _this.infoList=resp.data.data.rows
+                        _this.pageNum=resp.data.data.total
+                    } else {
+                        alert(resp.data.msg);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            // e_id是设备id
+            getItem:function (e_id){
+                let source="equipment.html?id="+e_id
+                window.location.href=source
+            }
+        },
+        created(){
+            this.search()
+            console.log("初始化力！！！")
+        }
+    })
+</script>
+</html>

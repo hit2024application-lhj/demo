@@ -54,12 +54,15 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
     @Override
     public PageResult getEquipmentsByEquipmentWithPage(Integer user_id, int pageId) {
 
-
+        List<Equipment> lists;
         QueryWrapper<Equipment> queryWrapper = new QueryWrapper<>();
         if(user_id!=-1){
             queryWrapper.eq("user_id", user_id);
+            lists=equipmentMapper.selectList(queryWrapper);
         }
-        List<Equipment> lists=equipmentMapper.selectList(queryWrapper);
+        else {
+            lists=equipmentMapper.selectList(null);
+        }
         MyPageHelper<Equipment> pageHelper=new MyPageHelper<>(lists);
 
         return pageHelper.getPageResult(pageId,pageSize);

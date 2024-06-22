@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios0.18.js"></script>
+    <script src="../js/pub.js"></script>
+    <link rel="stylesheet" href="../css/top.css"/>
+    <link rel="stylesheet" href="../css/mydetail.css"/>
+</head>
+<body>
+<div id="app">
+    <div style="z-index: 0">
+    <header>
+        <div class="top_container">
+            <nav>
+                <ul style="list-style-type: none; display: flex; align-items: center; margin: 0; padding: 0;">
+<!--                    <li style="margin-right: 10px;"><a href="/res/pages/home.html"-->
+<!--                                                       style="text-decoration: none; color: #fff;">首页</a></li>-->
+<!--                    <li style="margin-right: 10px;"><a href="/res/pages/mydetail.html"-->
+<!--                                                                          style="text-decoration: none; color: #fff;">个人中心</a>-->
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="mydetail_container">
+        <div class="mydetail_sidebar">
+            <h3 align="center">欢迎：{{name}}</h3>
+            <ul class="mydetail_menu" style="margin-top: 20px">
+                <li v-for="item in menuItems" :key="item.id">
+                    <a @click="setActiveItem(item)">{{ item.name }}</a>
+                </li>
+            </ul>
+            <div class="mydetail_logout">
+                <button @click="logout()">退出登录</button>
+            </div>
+
+        </div>
+        <div class="mydetail_content" style="overflow: hidden">
+            <iframe :src="activeItem.url"></iframe>
+        </div>
+    </div>
+    </div>
+    <div v-if="ifUpLoad" style="background-color: #f9f9f9;width: 600px;height: 770px;border: #2f3749 1px solid;
+            position: absolute;z-index: 1;left: 600px;top: 20px;border-radius: 10px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2)">
+        <iframe src="upload.html" style="width: 600px;height: 710px"></iframe>
+        <button @click="back" class="btn">返回</button>
+    </div>
+
+</div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:'#app',
+        data: {
+            //name是用户名
+            name: '',
+            //id是用户id
+            id:0,
+            menuItems: [
+                {id: 1, name: '科研设备搜索', url: 'search-student.html'},
+                {id: 2, name: '借用设备', url: 'lend.html'},
+            ],
+            activeItem: null,
+
+            ifUpLoad: false
+        },
+        methods:{
+            setActiveItem(item)
+            {
+                this.activeItem=item;
+            },
+            logout(){
+
+            },
+            upload(){
+                this.ifUpLoad = true;
+            },
+            back(){
+                this.ifUpLoad = false;
+            }
+        },
+        created() {
+            // 在组件创建后立即执行
+            // 尝试从sessionStorage中获取数据
+            let user_name = sessionStorage.getItem('name');
+            let user_id = sessionStorage.getItem("id");
+            if (user_name) {
+                // 如果存在数据，则设置到data的name属性中
+                this.name = user_name;
+                this.id=user_id
+            } else {
+                // 如果没有数据，你可以设置一个默认值或进行其他操作
+                console.log('No name found in sessionStorage');
+                // this.name = 'defaultName'; // 如果需要的话
+            }
+        },
+        mounted(){
+            this.activeItem = this.menuItems[0];
+        }
+    })
+</script>

@@ -24,7 +24,7 @@
         </div>
         <p class="or">or</p>
         <div>
-            <button @click="register" class="btn2">注册</button>
+            <button @click="student_register()" class="btn2">学生注册</button>
         </div>
     </div>
     <div style="bottom: 0;right: 0;position: absolute">
@@ -39,22 +39,22 @@
         data: {
             username:"",
             password:""
-    },
+        },
         methods:{
             login(){
                 let _this = this;
                 let data = {username: _this.username, password: _this.password};
                 axios({
                     method: "post",
-                    url: "/user/login",
+                    url: "/student/login",
                     data: convertToQueryString(data)
                 }).then(function (resp) {
                     console.log(resp.data);
                     if (resp.data.code == 200) {
                         alert("登录成功！");
-                        sessionStorage.setItem("user_id",resp.data.data.userId);
-                        sessionStorage.setItem("user_name",resp.data.data.userName);
-                        window.location.href = "home.html";
+                        sessionStorage.setItem("id",resp.data.data.id);
+                        sessionStorage.setItem("name",resp.data.data.name);
+                        window.location.href = "home-student.html";
                     } else {
                         alert(resp.data.msg);
                     }
@@ -64,6 +64,9 @@
             },
             register(){
                 window.location.href = "register.html";
+            },
+            student_register(){
+                window.location.href = "student_register.html"
             }
         }
     })
