@@ -125,6 +125,34 @@ public class EquipmentController {
     }
 
     /**
+     * 根据id借出设备（学生端）
+     * @param equipment_id
+     * @param student_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/lend_s")
+    public String lend_s(String equipment_id,String student_id){
+        equipmentService.lendEquipmentById_s(Integer.parseInt(equipment_id),Integer.parseInt(student_id));
+        return JSON.toJSONString(ResponseJSON.getOK());
+    }
+    /**
+     * 将对应id的设备标记为已经归还(学生端)
+     * @param equipment_id
+     * @param student_id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/recover_s")
+    public String recover_s(String equipment_id,String student_id){
+        int r=equipmentService.recoveryEquipmentById_s(Integer.parseInt(equipment_id),Integer.parseInt(student_id));
+        if (r<0){
+            return JSON.toJSONString(ResponseJSON.getERROR("没有操作权限！"));
+        }
+        return JSON.toJSONString(ResponseJSON.getOK());
+    }
+
+    /**
      * 根据id报废设备
      * @param equipment_id
      * @return

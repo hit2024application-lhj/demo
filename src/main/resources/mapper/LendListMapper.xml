@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.myapp.mapper.LendListMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.myapp.bean.LendList">
+            <result property="sId" column="s_id" jdbcType="INTEGER"/>
+            <result property="eId" column="e_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        s_id,e_id
+    </sql>
+    <select id="selectLendListByStudentId" resultType="org.example.myapp.bean.LendList">
+        select * from lend_list where s_id = #{s_id} and e_id = #{e_id}
+    </select>
+</mapper>

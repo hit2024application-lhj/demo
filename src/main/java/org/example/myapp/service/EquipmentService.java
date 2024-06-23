@@ -48,6 +48,11 @@ public interface EquipmentService extends IService<Equipment> {
     //借出
     int lendEquipmentById(int id);
 
+    int lendEquipmentById_s(int id,int s_id);
     //借出后收回
     int recoveryEquipmentById(int id);
+
+    int recoveryEquipmentById_s(int id,int s_id);
+
+
 }

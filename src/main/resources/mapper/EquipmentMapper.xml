@@ -24,4 +24,8 @@
     <select id="findEquipmentByName" resultType="org.example.myapp.bean.Equipment">
         SELECT * FROM equipment WHERE name LIKE CONCAT('%', #{subname}, '%') and user_id = #{userId}
     </select>
+
+    <select id="findEquipmentByName_s" resultType="org.example.myapp.bean.Equipment">
+        SELECT * FROM equipment WHERE name LIKE CONCAT('%', #{subname}, '%')
+    </select>
 </mapper>
