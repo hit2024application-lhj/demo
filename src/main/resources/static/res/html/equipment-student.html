@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详情页</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios0.18.js"></script>
+    <script src="../js/pub.js"></script>
+    <link type="text/css" rel="stylesheet" href="../css/equipment.css">
+</head>
+<body>
+<div id="app">
+    <div class="button-container">
+        <button class="btn" onclick="window.location.href='search-student.html'">返回</button>
+    </div>
+    <div class="main-container">
+        <div class="image-container">
+            <img v-if="item.picUrl !== null" class="image" :src="item.picUrl" alt="A science device?" >
+            <img v-else class="image" src="../img/test.jpg" alt="A science device?">
+        </div>
+        <div class="intro-container">
+        <h1>设备名称:{{item.name}}</h1>
+            <h1>设备ID:{{item.id}}</h1>
+            <h1>设备添加日期:{{item_date}}</h1>
+        <h1>当前状态：{{item.isScrap?'报废':(item.isLend?'借用':'空闲')}}</h1>
+            <h2>设备描述:{{item.description}}</h2>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            item:null,
+            id:0,
+            item_date:null
+        },
+        methods:{
+
+        },
+        created(){
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const id = urlParams.get('id');
+            let _this = this;
+            _this.id=id
+            let data = {equipment_id:_this.id};
+            axios({
+                method: "post",
+                url: "/equipment/getItem",
+                data: convertToQueryString(data)
+            }).then(function (resp) {
+                console.log(resp.data);
+                if (resp.data.code == 200) {
+                    _this.item=resp.data.data;
+                    let date = new Date(_this.item.date);
+                    // 使用getFullYear, getMonth (注意月份是从0开始的，所以要+1), 和getDate方法来获取年月日
+                    let year = date.getFullYear();
+                    let month = ("0" + (date.getMonth() + 1)).slice(-2); // 添加前导零
+                    let day = ("0" + date.getDate()).slice(-2); // 添加前导零
+
+                    // 格式化日期字符串
+                    _this.item_date = year + '年' + month + '月' + day + '日';
+                } else {
+                    alert(resp.data.msg);
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    })
+</script>
+</html>
