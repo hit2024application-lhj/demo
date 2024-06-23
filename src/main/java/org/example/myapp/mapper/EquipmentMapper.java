@@ -16,6 +16,8 @@ import java.util.List;
 public interface EquipmentMapper extends BaseMapper<Equipment> {
     // 模糊查询方法声明
     List<Equipment> findEquipmentByName(String subname,Integer userId);
+
+    List<Equipment> findEquipmentByName_s(String subname);
 }
 
 
