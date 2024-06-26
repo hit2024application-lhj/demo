@@ -79,7 +79,7 @@
                 let data = {user_id: _this.userId, pageId: _this.pageCurrent, keyword: _this.keyword};
                 axios({
                     method: "post",
-                    url: "/equipment/search",
+                    url: "/equipment/search_all",
                     data: convertToQueryString(data)
                 }).then(function (resp) {
                     console.log(resp.data);

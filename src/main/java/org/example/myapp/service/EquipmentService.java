@@ -32,6 +32,8 @@ public interface EquipmentService extends IService<Equipment> {
     PageResult getEquipmentsByEquipmentWithPage(Integer user_id, int page);
     int addEquipment(Equipment equipment);
 
+    PageResult getAllEquipments(Integer user_id, int pageId);
+
     /**
      * 字符串匹配模糊查找
      * @param user_id

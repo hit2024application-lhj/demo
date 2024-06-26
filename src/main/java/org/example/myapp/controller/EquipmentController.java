@@ -51,6 +51,36 @@ public class EquipmentController {
     }
 
     /**
+     * 一次查询所有设备到一个rows中
+     * @param keyword
+     * @param user_id
+     * @param pageId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/search_all")
+    public String search_all(@RequestParam String keyword,@RequestParam String user_id,@RequestParam(name = "pageId",defaultValue = "1")String pageId) {
+        System.out.println("!!-------------"+keyword+"--------------!!!");
+        if(keyword.equals("undefined")){
+            return JSON.toJSONString(
+                    ResponseJSON.getOK(
+                            equipmentService.getAllEquipments(Integer.parseInt(user_id),Integer.parseInt(pageId)
+                            )
+                    )
+            );
+        }
+        else {
+            return JSON.toJSONString(
+                    ResponseJSON.getOK(
+                            equipmentService.getEquipmentsBySubName(Integer.parseInt(user_id),keyword,Integer.parseInt(pageId)
+                            )
+                    )
+            );
+        }
+
+    }
+
+    /**
      * 上传数据
      * @param ImageUrl
      * @param name
