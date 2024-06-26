@@ -139,15 +139,23 @@ public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, Equipment
 
     @Override
     public int recoveryEquipmentById_s(int id, int s_id) {
+        System.out.println("当前学生id:"+s_id);
         List<LendList> lendList=null;
         lendList=lendListMapper.selectLendListByStudentId(s_id,id);
         //没有查到对应操作
+        System.out.println("lendList的size:"+lendList.size());
         if(lendList.size()==0){
             return -1;
         }
         UpdateWrapper<Equipment> updateWrapper = new UpdateWrapper<>();
         updateWrapper.set("is_lend",0);
         updateWrapper.eq("id", id);
+
+        QueryWrapper<LendList> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("s_id",s_id);
+        queryWrapper2.eq("e_id",id);
+        lendListMapper.delete(queryWrapper2);
+
         return equipmentMapper.update(updateWrapper);
     }
 }

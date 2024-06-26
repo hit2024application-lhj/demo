@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看统计信息</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios0.18.js"></script>
+    <script src="../js/pub.js"></script>
+    <script src="https://cdn.staticfile.net/echarts/4.3.0/echarts.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../css/stat.css">
+</head>
+<body>
+<h1>查看统计信息</h1>
+<div id="app">
+    <div v-for="item in infoList">{{item}}</div>
+
+</div>
+
+<div id="main" style="width: 600px;height:400px;"></div>
+<div id="test" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '第一个 ECharts 实例'
+        },
+        tooltip: {},
+        legend: {
+            data: ['销量']
+        },
+        xAxis: {
+            data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            pageCurrent: 1,
+            pageNum: 0,
+            infoList: [],
+            userId: 1,
+            x_data: [],
+            y_data: [],
+        },
+        methods: {
+            prePage: function () {
+                let _this = this
+                if (_this.pageCurrent > 1) {
+                    _this.pageCurrent--
+                    _this.search()
+                }
+            },
+            nextPage: function () {
+                let _this = this
+                if (_this.pageCurrent < _this.pageNum) {
+                    _this.pageCurrent++
+                    _this.search()
+                }
+            },
+            search: function () {
+                let _this = this;
+                let data = {user_id: _this.userId, pageId: _this.pageCurrent, keyword: _this.keyword};
+                axios({
+                    method: "post",
+                    url: "/equipment/search",
+                    data: convertToQueryString(data)
+                }).then(function (resp) {
+                    console.log(resp.data);
+                    if (resp.data.code == 200) {
+                        _this.infoList = resp.data.data.rows
+                        _this.pageNum = resp.data.data.total
+                        console.log("infoList为:"+_this.infoList)
+                        console.log("infoList[0]的设备名:"+_this.infoList[0].name)
+                        for (let i=0;i<_this.infoList.length;i++) {
+                            console.log("i设备类别ID:"+_this.infoList[i].categoryId)
+                            if (!_this.x_data.includes(_this.infoList[i].categoryId)) {
+                                _this.x_data.push(_this.infoList[i].categoryId);
+                                _this.y_data.push(0);
+                            }
+                            _this.y_data[_this.infoList[i].categoryId - 1] =
+                                _this.y_data[_this.infoList[i].categoryId - 1] + 1;
+                        }
+                        console.log(_this.x_data)
+                        console.log(_this.y_data)
+                        // 基于准备好的dom，初始化echarts实例
+                        let myChart = echarts.init(document.getElementById('test'));
+
+                        // 指定图表的配置项和数据
+                        let option = {
+                            title: {
+                                text: '第二个 ECharts 实例'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['各类型设备数量']
+                            },
+                            xAxis: {
+                                data: _this.x_data
+                            },
+                            yAxis: {},
+                            series: [{
+                                name: '各类型设备数量',
+                                type: 'bar',
+                                data: _this.y_data
+                            }]
+                        };
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    } else {
+                        alert(resp.data.msg);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                }).finish();
+            },
+            // e_id是设备id
+            getItem: function (e_id) {
+                let source = "equipment.html?id=" + e_id
+                window.location.href = source
+            }
+        },
+        created() {
+            let _this = this;
+            let user_id = sessionStorage.getItem("user_id");
+            _this.userId = user_id;
+            _this.search();
+            console.log("初始化力！！！");
+        }
+    })
+</script>
+</html>

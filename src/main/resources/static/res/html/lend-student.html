@@ -53,6 +53,7 @@
             pageNum:0,
             infoList:[],
             userId:-1,
+            stu_id:null
         },
         methods:{
             prePage: function(){
@@ -95,10 +96,10 @@
             },
             lend: function (e_id){
                 let _this = this;
-                let data = {equipment_id: e_id};
+                let data = {equipment_id: e_id,student_id: _this.stu_id};
                 axios({
                     method: "post",
-                    url: "/equipment/lend",
+                    url: "/equipment/lend_s",
                     data: convertToQueryString(data)
                 }).then(function (resp) {
                     console.log(resp.data);
@@ -113,10 +114,10 @@
             },
             recover: function (e_id){
                 let _this = this;
-                let data = {equipment_id: e_id};
+                let data = {equipment_id: e_id,student_id: _this.stu_id};
                 axios({
                     method: "post",
-                    url: "/equipment/recover",
+                    url: "/equipment/recover_s",
                     data: convertToQueryString(data)
                 }).then(function (resp) {
                     console.log(resp.data);
@@ -132,7 +133,9 @@
         },
         created(){
             this.search()
-            console.log("初始化力！！！")
+            this.stu_id = sessionStorage.getItem("id");
+            console.log("初始化力！！！");
+            console.log("学生id为:"+this.stu_id);
         }
     })
 </script>
