@@ -29,8 +29,9 @@
             </div>
             <div class="button-eqpInfo-container">
                 <p class="dpInfo"><strong>{{item.name}}</strong></p>
-                <button v-if="item.isLend == 0" @click="lend(item.id)" class="btn">借用</button>
-                <button v-if="item.isLend == 1" @click="recover(item.id)" class="btn">归还</button>
+                <button v-if="item.isLend == 0 && item.isScrap == 0" @click="lend(item.id)" class="btn">借用</button>
+                <button v-if="item.isLend == 1 && item.isScrap == 0" @click="recover(item.id)" class="btn">归还</button>
+                <button v-if="item.isScrap == 1" onclick="window.alert('该设备已报废！')" class="btn-scrap">报废中</button>
             </div>
         </div>
     </div>

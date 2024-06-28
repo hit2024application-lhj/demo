@@ -21,6 +21,7 @@
         <div class="intro-container">
         <h1>设备名称:{{item.name}}</h1>
             <h1>设备ID:{{item.id}}</h1>
+            <h1>设备类型:{{category_list[item.categoryId-1].name}}</h1>
             <h1>设备添加日期:{{item_date}}</h1>
         <h1>当前状态：{{item.isScrap?'报废':(item.isLend?'借用':'空闲')}}</h1>
             <h2>设备描述:{{item.description}}</h2>
@@ -34,7 +35,8 @@
         data:{
             item:null,
             id:0,
-            item_date:null
+            item_date:null,
+            category_list: [],
         },
         methods:{
 
@@ -46,6 +48,19 @@
             let _this = this;
             _this.id=id
             let data = {equipment_id:_this.id};
+            axios({
+                method: "post",
+                url: "/category/getList",
+            }).then(function (resp) {
+                console.log(resp.data);
+                if (resp.data.code == 200) {
+                    _this.category_list = resp.data.data
+                } else {
+                    alert(resp.data.msg);
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
             axios({
                 method: "post",
                 url: "/equipment/getItem",

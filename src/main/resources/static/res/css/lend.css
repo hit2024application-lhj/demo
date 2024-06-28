@@ -121,6 +121,26 @@ body {
     background-image: linear-gradient(to right, #705f35, #6e6713);
 }
 
+.btn-scrap {
+    text-align: center;
+    padding: 10px;
+    width: 80px;
+    border: 0;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #832424, #9b9068);
+    color: #fff;
+    transition: background-image 0.3s ease;
+    margin-bottom: 50px;
+}
+
+.btn-scrap:hover{
+    background-image: linear-gradient(to right, #b25656, #d5c589);
+}
+
+.btn-scrap:active{
+    background-image: linear-gradient(to right, #561919, #6e6029);
+}
+
 .msg {
   text-align: center;
   line-height: 100px;
