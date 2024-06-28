@@ -50,7 +50,7 @@
             pageCurrent:1,
             pageNum:0,
             infoList:[],
-            userId:1,
+            userId:-1,
         },
         methods:{
             prePage: function(){
@@ -69,7 +69,7 @@
             },
             search: function(){
                 let _this = this;
-                let data = {user_id: _this.userId, pageId: _this.pageCurrent, keyword:_this.keyword};
+                let data = {user_id: -1, pageId: _this.pageCurrent, keyword:_this.keyword};
                 axios({
                     method: "post",
                     url: "/equipment/search",

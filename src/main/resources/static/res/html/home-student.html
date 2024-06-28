@@ -28,13 +28,14 @@
     <div class="mydetail_container">
         <div class="mydetail_sidebar">
             <h3 align="center">欢迎：{{name}}</h3>
+            <h3 align="center">当前页面：{{activeItem.name}}</h3>
             <ul class="mydetail_menu" style="margin-top: 20px">
                 <li v-for="item in menuItems" :key="item.id">
                     <a @click="setActiveItem(item)">{{ item.name }}</a>
                 </li>
             </ul>
             <div class="mydetail_logout">
-                <button @click="logout()">退出登录</button>
+                <button onclick="window.location.href='choose.html'">退出登录</button>
             </div>
 
         </div>
@@ -63,6 +64,7 @@
             menuItems: [
                 {id: 1, name: '科研设备搜索', url: 'search-student.html'},
                 {id: 2, name: '借用设备', url: 'lend-student.html'},
+                {id: 3, name: '查看设备统计信息', url:'stat.html'}
             ],
             activeItem: null,
 
